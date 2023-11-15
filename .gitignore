@@ -1,0 +1,17 @@
+*.iml
+.gradle
+.vscode
+.idea
+/.idea/caches/
+/.idea/libraries/
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+Thumbs.db
