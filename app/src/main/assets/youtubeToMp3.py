@@ -3,6 +3,14 @@ from pytube import YouTube
 import os
 from pathlib import Path
 #PART GET URL
+class YtbHelper:
+    dev_key = 'AIzaSyD-JFJ1hIzgbEuz5KpcTMNCdizHp_8Zhss'
+    def getMusics(search):
+        youtube =  build('youtube', 'v3', developerKey=dev_key)
+
+
+
+
 youtube = build('youtube', 'v3', developerKey='AIzaSyD-JFJ1hIzgbEuz5KpcTMNCdizHp_8Zhss')
 
 request = youtube.search().list(
