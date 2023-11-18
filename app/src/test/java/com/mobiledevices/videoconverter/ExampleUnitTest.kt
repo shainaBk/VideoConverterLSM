@@ -1,8 +1,8 @@
 package com.mobiledevices.videoconverter
 
 import org.junit.Test
-
 import org.junit.Assert.*
+import com.chaquo.python.Python
 
 /**
  * Example local unit test, which will execute on the development machine (host).
