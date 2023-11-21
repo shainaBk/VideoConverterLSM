@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.mobiledevices.videoconverter"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.mobiledevices.videoconverter"
@@ -34,14 +34,18 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
