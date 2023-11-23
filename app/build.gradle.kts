@@ -70,7 +70,20 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     testImplementation(libs.junit)
+    testImplementation("org.testng:testng:6.9.6")
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("com.google.code.gson:gson:2.8.6")
+    // Ajoutez les dépendances pour kotlin.test
+    testImplementation("org.jetbrains.kotlin:kotlin-test-common:1.8.22")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-annotations-common:1.8.22")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.22")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    // Pour les tests Android instrumentalisés
+    androidTestImplementation("org.jetbrains.kotlin:kotlin-test:1.8.22")
+    testImplementation("org.mockito:mockito-core:3.11.2") // Remplacez 3.x.x par la dernière version
+
+
+
 }
