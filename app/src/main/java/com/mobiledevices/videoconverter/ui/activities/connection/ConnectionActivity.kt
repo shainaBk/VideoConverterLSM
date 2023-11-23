@@ -1,13 +1,13 @@
-package com.mobiledevices.videoconverter.ui
+package com.mobiledevices.videoconverter.ui.activities.connection
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.databinding.ActivityMainBinding
+import com.mobiledevices.videoconverter.databinding.ActivityConnectionBinding
 
-class MainActivity : AppCompatActivity() {
+class ConnectionActivity : AppCompatActivity() {
 
     // Used to navigate between fragments
     private lateinit var navController: NavController
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityConnectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Get the navigation host fragment from this Activity

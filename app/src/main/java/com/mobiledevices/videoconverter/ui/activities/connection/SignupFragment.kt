@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ui.fragments
+package com.mobiledevices.videoconverter.ui.activities.connection
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.mobiledevices.videoconverter.databinding.FragmentLoginBinding
+import com.mobiledevices.videoconverter.databinding.FragmentSignupBinding
 
-class LoginFragment : Fragment() {
+class SignupFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,7 +18,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
         binding.ibBack.setOnClickListener {
             findNavController().navigateUp()
