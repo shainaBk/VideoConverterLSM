@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ui
+package com.mobiledevices.videoconverter.ui.connection
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class ConnectionActivity : AppCompatActivity() {
 
     // Used to navigate between fragments
     private lateinit var navController: NavController

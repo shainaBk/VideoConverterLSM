@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ui.fragments
+package com.mobiledevices.videoconverter.ui.connection
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +23,10 @@ class WelcomeFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
+        }
+
+        binding.btnSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_welcomeFragment_to_signupFragment)
         }
 
         return binding.root

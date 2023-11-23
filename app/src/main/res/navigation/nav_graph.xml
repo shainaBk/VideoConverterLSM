@@ -7,16 +7,23 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.mobiledevices.videoconverter.ui.fragments.WelcomeFragment"
+        android:name="com.mobiledevices.videoconverter.ui.connection.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mobiledevices.videoconverter.ui.fragments.LoginFragment"
+        android:name="com.mobiledevices.videoconverter.ui.connection.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.mobiledevices.videoconverter.ui.connection.SignupFragment"
+        android:label="SignupFragment" />
 </navigation>
