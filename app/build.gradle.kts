@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    id("com.chaquo.python")
 }
 
 android {
@@ -16,6 +17,32 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your app.
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+        }
+        chaquopy {
+            defaultConfig {
+                version = "3.11"
+                pip {
+                    // A requirement specifier, with or without a version number:
+                    install("google-api-python-client")
+                    install("pytube")
+                    install("google-auth-httplib2")
+                    install("google-auth-oauthlib")
+                }
+                pyc {
+                    src = false
+                }
+
+            }
+            sourceSets {
+                getByName("main") {
+                    srcDir("src/main/assets/python")
+                }
+            }
+        }
     }
 
     buildTypes {
@@ -50,6 +77,20 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     testImplementation(libs.junit)
+    testImplementation("org.testng:testng:6.9.6")
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("com.google.code.gson:gson:2.8.6")
+    // Ajoutez les dépendances pour kotlin.test
+    testImplementation("org.jetbrains.kotlin:kotlin-test-common:1.8.22")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-annotations-common:1.8.22")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.22")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    // Pour les tests Android instrumentalisés
+    androidTestImplementation("org.jetbrains.kotlin:kotlin-test:1.8.22")
+    testImplementation("org.mockito:mockito-core:3.11.2") // Remplacez 3.x.x par la dernière version
+
+
+
 }
