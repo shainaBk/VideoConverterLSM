@@ -16,10 +16,10 @@ public class MusicService {
                 val jsonResult = pythonScript.callAttr("getMusics", search).toString()
                 Log.d("JSONRESULT", "here=> "+ jsonResult)
                 val type = object : TypeToken<List<Music>>() {}.type
-                Gson().fromJson(jsonResult, type)
+                return Gson().fromJson(jsonResult, type)
             } catch (e: Exception) {
                 Log.e("MusicService", "Erreur: ${e.message}")
-                emptyList()
+                return emptyList()
             }
         }
 
