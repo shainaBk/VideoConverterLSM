@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.application.LibraryFragment"
-    android:background="@color/material_dynamic_neutral70">
+    android:background="@color/grey_2"
+    tools:context=".ui.activities.application.LibraryFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LIBRARY"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:text="LIBRARY" />
 
 </FrameLayout>
