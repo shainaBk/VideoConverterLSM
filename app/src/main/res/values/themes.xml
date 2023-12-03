@@ -1,8 +1,13 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.VideoConverter" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/orange_1</item>
+
+        <item name="colorPrimaryContainer">@color/orange_3</item>
+        <item name="colorSecondaryContainer">@color/orange_4</item>
+        <item name="colorOnPrimaryContainer">@color/orange_1</item>
     </style>
 
     <style name="Theme.VideoConverter" parent="Base.Theme.VideoConverter" />

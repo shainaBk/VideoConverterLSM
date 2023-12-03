@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ui.activities.connection
+package com.mobiledevices.videoconverter.ui.activity.connection
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

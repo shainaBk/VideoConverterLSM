@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_2"
-    tools:context=".ui.activities.application.LibraryFragment">
+    tools:context=".ui.activity.application.LibraryFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="LIBRARY" />
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_library"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 </FrameLayout>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.mobiledevices.videoconverter.ui.activities.connection.WelcomeFragment"
+        android:name="com.mobiledevices.videoconverter.ui.activity.connection.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -19,24 +19,24 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mobiledevices.videoconverter.ui.activities.connection.LoginFragment"
+        android:name="com.mobiledevices.videoconverter.ui.activity.connection.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_applicationActivity"
             app:destination="@id/applicationActivity" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.mobiledevices.videoconverter.ui.activities.connection.SignupFragment"
-        android:label="fragment_signup" >
+        android:name="com.mobiledevices.videoconverter.ui.activity.connection.SignupFragment"
+        android:label="fragment_signup">
         <action
             android:id="@+id/action_signupFragment_to_applicationActivity"
             app:destination="@id/applicationActivity" />
     </fragment>
     <activity
         android:id="@+id/applicationActivity"
-        android:name="com.mobiledevices.videoconverter.ui.activities.application.ApplicationActivity"
+        android:name="com.mobiledevices.videoconverter.ui.activity.application.ApplicationActivity"
         android:label="activity_application"
         tools:layout="@layout/activity_application" />
 </navigation>
