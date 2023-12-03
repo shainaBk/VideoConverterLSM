@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "149140112342",
+    "project_id": "tagataga-11",
+    "storage_bucket": "tagataga-11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149140112342:android:b5215fc35c3ce1d284da77",
+        "android_client_info": {
+          "package_name": "com.mobiledevices.videoconverter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1XX6izICJvSEy-a1HAnqH5578cVoYmsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

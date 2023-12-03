@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     id("com.chaquo.python")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -83,6 +84,19 @@ dependencies {
     // Pour les tests Android instrumentalisés
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test:1.8.22")
     testImplementation("org.mockito:mockito-core:3.11.2") // Remplacez 3.x.x par la dernière version
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation("com.google.firebase:firebase-firestore")
+
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation("com.google.firebase:firebase-analytics")
+
+
+    // Add the dependencies for any other desired Firebase products
+    // https://firebase.google.com/docs/android/setup#available-libraries
+
 
 
 
