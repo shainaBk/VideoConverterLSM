@@ -34,7 +34,7 @@ class MusicLibraryAdapter(private val musicList: MutableList<Music>) :
 
         holder.thumbnail.setImageResource(R.drawable.ic_launcher_background)
         holder.title.text = music.title
-        holder.artist.text = music.channel_title
+        holder.artist.text = music.channelTitle
 
         holder.favorite.setOnClickListener {
             music.isFavorite = !music.isFavorite

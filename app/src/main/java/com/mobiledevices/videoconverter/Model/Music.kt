@@ -4,14 +4,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class Music(
-    val video_id: String = "",
-    val video_url: String = "",
-    val thumbnail_url: String = "",
+    val videoId: String = "",
+    val videoUrl: String = "",
+    val thumbnailUrl: String = "",
     val title: String = "",
-    val channel_title: String = "",
-    var isFavorite: Boolean = false
+    val channelTitle: String = "",
+    var isFavorite: Boolean = false,
+    var isDownloaded: Boolean = false
 ) {
     override fun toString(): String {
-        return "Music: {$channel_title} - {$title}"
+        return "Music: {$channelTitle} - {$title} - Downloaded: {$isDownloaded}"
     }
 }

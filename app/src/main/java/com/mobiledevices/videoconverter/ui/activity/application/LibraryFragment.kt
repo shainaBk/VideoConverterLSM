@@ -23,15 +23,6 @@ class LibraryFragment : Fragment() {
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         val musicList = ArrayList<Music>()
 
-        musicList.add(Music("", "", "", "Title 1", "Artist 1"))
-        musicList.add(Music("", "", "", "Title 2", "Artist 2"))
-        musicList.add(Music("", "", "", "Title 3", "Artist 3"))
-        musicList.add(Music("", "", "", "Title 4", "Artist 4"))
-        musicList.add(Music("", "", "", "Title 5", "Artist 5"))
-        musicList.add(Music("", "", "", "Title 6", "Artist 6"))
-        musicList.add(Music("", "", "", "Title 7", "Artist 7"))
-        musicList.add(Music("", "", "", "Title 8", "Artist 8"))
-
         val recyclerView: RecyclerView = binding.rvLibrary
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MusicLibraryAdapter(musicList)
