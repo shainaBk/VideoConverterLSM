@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -15,14 +15,19 @@ import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.adapter.MusicHomeAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentHomeBinding
 import com.mobiledevices.videoconverter.viewModel.MusicViewModel
+import kotlin.random.Random
 
 class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
-    // We use the view binding feature to avoid using findViewById()
+    /**
+     * We use the view binding feature to avoid using findViewById()
+     */
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    // We use the view model to store the music list during the fragment lifecycle
-    private val viewModel: MusicViewModel by viewModels()
+    /**
+     * We use the view model to store the music list during the fragment lifecycle
+     */
+    private val viewModel: MusicViewModel by activityViewModels()
 
     /**
      * Create the view and the recycler view adapter when the fragment view is created (rotation, ...)
@@ -36,24 +41,10 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val adapter = MusicHomeAdapter(mutableListOf(), this) // Create the recycler view adapter
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        // Set the recycler view adapter and layout manager
-        binding.rvDownload.apply {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
-        }
-
-        // Observe the music list to update the recycler view adapter
-        viewModel.musicList.observe(viewLifecycleOwner, Observer { _ ->
-            val nonDownloadedList = viewModel.getNonDownloadedMusic()
-            adapter.updateMusicList(nonDownloadedList)
-            updateNoResultImage(nonDownloadedList)
-        })
-
-        // Set the click listener on the search button to open the search dialog
-        binding.newSearch.setOnClickListener { openSearchDialog() }
+        setupRecyclerView()
+        observeMusicList()
+        setupSearchButton()
 
         return binding.root
     }
@@ -72,8 +63,40 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     override fun onMusicDownload(music: Music) {
         viewModel.markMusicAsDownloaded(music)
-        println("Music downloaded: $music")
-        println("Remaining music: ${viewModel.getNonDownloadedMusic()}")
+    }
+
+    /**
+     * Observe the music list to update the recycler view adapter
+     */
+    private fun setupRecyclerView() {
+        val adapter = MusicHomeAdapter(mutableListOf(), this)
+        binding.rvDownload.apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+        }
+    }
+
+    /**
+     * Observe the music list to update the recycler view adapter
+     */
+    private fun observeMusicList() {
+        viewModel.nonDownloadedMusic.observe(viewLifecycleOwner, Observer { nonDownloadedList ->
+            binding.rvDownload.adapter?.let { adapter ->
+                if (adapter is MusicHomeAdapter) {
+                    adapter.updateMusicList(nonDownloadedList)
+                    updateNoResultImage(nonDownloadedList)
+                }
+            }
+        })
+    }
+
+    /**
+     * Setup the search button to open the search dialog
+     */
+    private fun setupSearchButton() {
+        binding.newSearch.setOnClickListener {
+            openSearchDialog()
+        }
     }
 
     /**
@@ -88,7 +111,14 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
             .setView(dialogView)
             .setPositiveButton("Search") { _, _ ->
                 val musicName = editText.text.toString()
-                val newMusic = Music(musicName, musicName, musicName, musicName, musicName)
+                val newMusic =
+                    Music(
+                        Random.nextInt(1, 100000).toString(),
+                        musicName,
+                        musicName,
+                        musicName,
+                        musicName
+                    )
                 viewModel.addMusic(newMusic)
             }
             .setNegativeButton("Cancel", null)

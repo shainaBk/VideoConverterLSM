@@ -38,10 +38,10 @@ class MusicHomeAdapter(
     ) : DiffUtil.Callback() {
         override fun getOldListSize(): Int = oldList.size
         override fun getNewListSize(): Int = newList.size
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
             oldList[oldItemPosition].videoId == newList[newItemPosition].videoId
 
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
             oldList[oldItemPosition] == newList[newItemPosition]
     }
 
@@ -77,7 +77,7 @@ class MusicHomeAdapter(
                 .make(it, "Downloading ${music.title}...", Snackbar.LENGTH_SHORT)
                 .setAction("Close") {}
                 .show()
-            downloadMusic(music.videoId)
+            downloadListener.onMusicDownload(music)
         }
     }
 
@@ -92,24 +92,10 @@ class MusicHomeAdapter(
      * @param newMusicList The new music list
      */
     fun updateMusicList(newMusicList: List<Music>) {
-        val diffCallback = MusicDiffCallback(musicList, newMusicList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
+        val diffResult = DiffUtil.calculateDiff(MusicDiffCallback(musicList, newMusicList))
         musicList.clear()
         musicList.addAll(newMusicList)
         diffResult.dispatchUpdatesTo(this)
-    }
-
-    /**
-     * Download a music: transfer it to the library
-     * @param musicId The music id
-     */
-    private fun downloadMusic(musicId: String) {
-        val music = musicList.find { it.videoId == musicId }
-        music?.let {
-            it.isDownloaded = true
-            downloadListener.onMusicDownload(it)
-        }
     }
 
     /**
