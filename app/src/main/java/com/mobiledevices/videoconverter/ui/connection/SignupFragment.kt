@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Ui.viewModel.SignupViewModel
+import com.mobiledevices.videoconverter.viewModel.SignupViewModel
 import com.mobiledevices.videoconverter.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment() {

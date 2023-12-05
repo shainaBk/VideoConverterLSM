@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.adapter.MusicLibraryAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentLibraryBinding
-import com.mobiledevices.videoconverter.Ui.viewModel.MusicViewModel
+import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 
 class LibraryFragment : Fragment() {
 

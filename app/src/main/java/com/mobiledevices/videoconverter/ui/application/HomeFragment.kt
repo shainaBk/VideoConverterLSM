@@ -15,7 +15,7 @@ import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.adapter.MusicHomeAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentHomeBinding
-import com.mobiledevices.videoconverter.Ui.viewModel.MusicViewModel
+import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 import kotlin.random.Random
 
 class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {

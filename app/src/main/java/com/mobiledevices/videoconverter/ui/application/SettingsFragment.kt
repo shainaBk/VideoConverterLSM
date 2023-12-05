@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.mobiledevices.videoconverter.databinding.FragmentSettingsBinding
 import com.mobiledevices.videoconverter.ui.activity.connection.ConnectionActivity
-import com.mobiledevices.videoconverter.Ui.viewModel.MusicViewModel
+import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
