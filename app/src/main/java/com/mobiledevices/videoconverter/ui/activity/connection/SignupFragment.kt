@@ -1,3 +1,4 @@
+
 package com.mobiledevices.videoconverter.ui.activities.connection
 
 import android.os.Bundle
@@ -10,15 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Ui.viewmodel.SignupViewModel
-
-
+import com.mobiledevices.videoconverter.Ui.viewModel.SignupViewModel
 import com.mobiledevices.videoconverter.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment() {
 
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
+
 
     private val signupViewModel: SignupViewModel by viewModels()
 
@@ -38,6 +38,7 @@ class SignupFragment : Fragment() {
         }
         return binding.root
     }
+
     //TODO: champs validation mail mdp
     private fun signUpUser(){
         val email = binding.tiEditMail.text.toString()

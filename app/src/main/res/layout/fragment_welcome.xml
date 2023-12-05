@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.connection.WelcomeFragment">
+    tools:context=".ui.activity.connection.WelcomeFragment">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -13,7 +13,7 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="32dp"
         android:importantForAccessibility="no"
-        android:src="@drawable/logo_taga" />
+        android:src="@drawable/png_logo_taga" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

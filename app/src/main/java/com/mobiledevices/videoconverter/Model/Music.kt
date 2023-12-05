@@ -3,8 +3,18 @@ package com.mobiledevices.videoconverter.Model
 import kotlinx.serialization.Serializable
 
 @Serializable
-class Music(val video_id:String = "", val video_url: String ="",val thumbnail_url:String="", val title: String="", val channel_title: String =""){
+class Music(
+    val videoId: String = "",
+    val videoUrl: String = "",
+    val thumbnailUrl: String = "",
+    val title: String = "",
+    val channelTitle: String = "",
+    var isFavorite: Boolean = false,
+    var isDownloaded: Boolean = false
+) {
     override fun toString(): String {
-        return  "Music: {$channel_title} - {$title}";
+        val downloaded: String = if (isDownloaded) "downloaded" else "NOTDownloaded"
+        val favorite: String = if (isFavorite) "favorite" else "NOTFavorite"
+        return "> $title by $channelTitle - {$downloaded, $favorite}"
     }
 }

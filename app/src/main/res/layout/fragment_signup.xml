@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.connection.LoginFragment">
+    tools:context=".ui.activity.connection.LoginFragment">
 
     <ImageButton
         android:id="@+id/ib_back"
@@ -23,7 +23,7 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="32dp"
         android:importantForAccessibility="no"
-        android:src="@drawable/logo_taga" />
+        android:src="@drawable/png_logo_taga" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -91,12 +91,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/enter_password"
-            app:passwordToggleEnabled="true"
             app:errorIconDrawable="@drawable/ic_error"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ti_mail">
+            app:layout_constraintTop_toBottomOf="@id/ti_mail"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ti_edit_password"
@@ -115,10 +115,10 @@
             android:hint="@string/confirm_password"
             app:errorIconDrawable="@drawable/ic_error"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:passwordToggleEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ti_password">
+            app:layout_constraintTop_toBottomOf="@id/ti_password"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ti_edit_conf_password"

@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Ui.viewmodel
+package com.mobiledevices.videoconverter.Ui.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
