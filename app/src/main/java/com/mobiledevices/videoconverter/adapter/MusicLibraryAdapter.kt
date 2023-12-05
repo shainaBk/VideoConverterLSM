@@ -12,8 +12,7 @@ import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
 
 class MusicLibraryAdapter(
-    private val musicList: MutableList<Music>,
-    private val downloadListener: OnMusicDownloadListener
+    private val musicList: MutableList<Music>
 ) : RecyclerView.Adapter<MusicLibraryAdapter.MusicLibraryViewHolder>() {
 
     /**
@@ -71,6 +70,7 @@ class MusicLibraryAdapter(
         holder.thumbnail.setImageResource(R.drawable.ic_launcher_background)
         holder.title.text = music.title
         holder.artist.text = music.channelTitle
+        updateFavoriteIcon(holder.favorite, music.isFavorite)
 
         holder.favorite.setOnClickListener {
             music.isFavorite = !music.isFavorite
@@ -107,12 +107,5 @@ class MusicLibraryAdapter(
         } else {
             favoriteButton.setImageResource(R.drawable.ic_favorite_border)
         }
-    }
-
-    /**
-     * Interface to handle the music download
-     */
-    interface OnMusicDownloadListener {
-        fun onMusicDownload(music: Music)
     }
 }

@@ -9,6 +9,9 @@
         android:id="@+id/et_search_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter music title" />
+        android:autofillHints="name"
+        android:hint="@string/enter_music_title"
+        android:inputType="textNoSuggestions"
+        android:maxLines="1" />
 
 </LinearLayout>

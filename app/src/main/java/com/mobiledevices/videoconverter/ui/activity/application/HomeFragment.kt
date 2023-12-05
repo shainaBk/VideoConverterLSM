@@ -1,6 +1,7 @@
 package com.mobiledevices.videoconverter.ui.activity.application
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,11 @@ import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 import kotlin.random.Random
 
 class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
+
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
+
     /**
      * We use the view binding feature to avoid using findViewById()
      */
@@ -41,6 +47,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(TAG, "Home fragment created")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupRecyclerView()
         observeMusicList()
@@ -53,6 +60,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      * Destroy the view binding when the fragment view is destroyed
      */
     override fun onDestroyView() {
+        Log.d(TAG, "Home fragment destroyed")
         super.onDestroyView()
         _binding = null
     }
@@ -62,6 +70,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      * @param music The music to mark as downloaded
      */
     override fun onMusicDownload(music: Music) {
+        Log.d(TAG, "Music downloaded: $music")
         viewModel.markMusicAsDownloaded(music)
     }
 
@@ -69,6 +78,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      * Observe the music list to update the recycler view adapter
      */
     private fun setupRecyclerView() {
+        Log.d(TAG, "Setup HOME recycler view")
         val adapter = MusicHomeAdapter(mutableListOf(), this)
         binding.rvDownload.apply {
             layoutManager = LinearLayoutManager(context)
@@ -80,9 +90,12 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      * Observe the music list to update the recycler view adapter
      */
     private fun observeMusicList() {
+        Log.d(TAG, "Observe music list")
         viewModel.nonDownloadedMusic.observe(viewLifecycleOwner, Observer { nonDownloadedList ->
             binding.rvDownload.adapter?.let { adapter ->
                 if (adapter is MusicHomeAdapter) {
+                    val musicListString = nonDownloadedList.joinToString("\n") { it.toString() }
+                    Log.d(TAG, "Update music list:\n$musicListString")
                     adapter.updateMusicList(nonDownloadedList)
                     updateNoResultImage(nonDownloadedList)
                 }
@@ -103,6 +116,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      * Open the search dialog to add a new music
      */
     private fun openSearchDialog() {
+        Log.d(TAG, "Open search dialog")
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_search_music, null)
         val editText = dialogView.findViewById<EditText>(R.id.et_search_music)
 

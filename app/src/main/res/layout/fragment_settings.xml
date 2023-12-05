@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/iv_profile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_gravity="center"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_person"
@@ -24,7 +24,6 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
         android:hint="@string/enter_old_password"
         app:errorIconDrawable="@drawable/ic_error"
         app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -83,6 +82,7 @@
 
         <Button
             android:id="@+id/btn_clear_music"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -90,7 +90,9 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/orange_1"
+            app:strokeWidth="2dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -101,6 +103,7 @@
 
         <Button
             android:id="@+id/btn_logout"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -108,7 +111,9 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/orange_1"
+            app:strokeWidth="2dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
