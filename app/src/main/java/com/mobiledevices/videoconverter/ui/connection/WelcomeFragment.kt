@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ui.activity.connection
+package com.mobiledevices.videoconverter.Ui.connection
 
 import android.os.Bundle
 import android.view.LayoutInflater

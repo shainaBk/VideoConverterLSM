@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ui.activity.application
+package com.mobiledevices.videoconverter.Ui.application
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.mobiledevices.videoconverter.databinding.FragmentSettingsBinding
-import com.mobiledevices.videoconverter.ui.activity.connection.ConnectionActivity
+import com.mobiledevices.videoconverter.Ui.connection.ConnectionActivity
 import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 
 class SettingsFragment : Fragment() {

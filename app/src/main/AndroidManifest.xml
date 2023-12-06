@@ -19,11 +19,11 @@
 
         >
         <activity
-            android:name=".ui.activity.application.ApplicationActivity"
+            android:name=".Ui.application.ApplicationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".ui.activity.connection.ConnectionActivity"
+            android:name=".Ui.connection.ConnectionActivity"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>

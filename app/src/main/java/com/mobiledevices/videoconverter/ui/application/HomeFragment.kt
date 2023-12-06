@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ui.activity.application
+package com.mobiledevices.videoconverter.Ui.application
 
 import android.os.Bundle
 import android.util.Log

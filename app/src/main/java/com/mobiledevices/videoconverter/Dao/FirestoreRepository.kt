@@ -17,9 +17,9 @@ class FirestoreRepository {
         // Méthode pour ajouter un nouvel utilisateur
         suspend fun addUser(user: User): User? = withContext(Dispatchers.IO) {
             try {
-                val documentReference = db.collection("users").add(user).await()
-                Log.i("SUCCESSadd1","${documentReference.id}")
-                user.copy(id = documentReference.id)
+                db.collection("users").document(user.id).set(user).await()
+                Log.i("SUCCESSadd1","${user.toString()}")
+                user
             } catch (e: Exception) {
                 Log.e("ErrorAddUser","ERROR ON addUser()")
                 null
@@ -43,7 +43,7 @@ class FirestoreRepository {
             try {
                 val documentReference = db.collection("users").document(userId).get().await()
                 if (documentReference.exists()) {
-                    documentReference.toObject(User::class.java)?.copy(id = documentReference.id)
+                    documentReference.toObject(User::class.java)
                 } else {
                     null
                 }
@@ -67,7 +67,6 @@ class FirestoreRepository {
 
                 // Étape 3 : Mettre à jour le document de l'utilisateur
                 userDocumentRef.update("librarie", currentLibrary).await()
-                true
                 true
             } catch (e: Exception) {
                 Log.w("FirestoreAddMusic", "Error adding music to user", e)
@@ -93,6 +92,7 @@ class FirestoreRepository {
                 emptyList<Music>()
             }
         }
+
         /* EXEMPLE UTILISATION METHODE!!!!
         /**Exemple pour ajouter un utilisateur**/
         val newMusic = Music("videoId", "videoUrl", "thumbnailUrl", "Title", "Channel")

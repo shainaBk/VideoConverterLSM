@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.connection.LoginFragment">
+    tools:context=".Ui.connection.SignupFragment">
 
     <ImageButton
         android:id="@+id/ib_back"

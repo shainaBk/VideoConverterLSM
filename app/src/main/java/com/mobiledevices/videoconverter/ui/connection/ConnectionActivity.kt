@@ -1,10 +1,12 @@
-package com.mobiledevices.videoconverter.ui.activity.connection
+package com.mobiledevices.videoconverter.Ui.connection
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mobiledevices.videoconverter.R
+import com.mobiledevices.videoconverter.Service.MusicService
 import com.mobiledevices.videoconverter.databinding.ActivityConnectionBinding
 
 class ConnectionActivity : AppCompatActivity() {
@@ -14,7 +16,6 @@ class ConnectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityConnectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -9,7 +9,6 @@ plugins {
 android {
     namespace = "com.mobiledevices.videoconverter"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.mobiledevices.videoconverter"
         minSdk = 24
