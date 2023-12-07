@@ -1,8 +1,8 @@
-package com.mobiledevices.videoconverter.validation
+package com.mobiledevices.videoconverter.Core.validation
 
 import android.util.Log
-import com.mobiledevices.videoconverter.Dao.FirestoreRepository
-import com.mobiledevices.videoconverter.Utils.PasswordUtils
+import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
+import com.mobiledevices.videoconverter.Core.Utils.PasswordUtils
 
 class Validator {
     companion object {

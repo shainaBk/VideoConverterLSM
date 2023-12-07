@@ -1,20 +1,15 @@
 package com.mobiledevices.videoconverter.Ui.application
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Service.MusicService
-import com.mobiledevices.videoconverter.Utils.UserManager
+import com.mobiledevices.videoconverter.Core.Utils.UserManager
 import com.mobiledevices.videoconverter.databinding.ActivityApplicationBinding
-import com.mobiledevices.videoconverter.viewModel.SharedViewModel
-import kotlinx.coroutines.launch
+import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
 
 class ApplicationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityApplicationBinding

@@ -1,9 +1,8 @@
-package com.mobiledevices.videoconverter.viewModel
+package com.mobiledevices.videoconverter.ViewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mobiledevices.videoconverter.Dao.FirestoreRepository
 import com.mobiledevices.videoconverter.Model.User
 
 class SharedViewModel : ViewModel() {

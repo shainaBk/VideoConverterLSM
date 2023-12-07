@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Dao
+package com.mobiledevices.videoconverter.Core.Dao
 
 import android.util.Log
 import com.google.firebase.Firebase

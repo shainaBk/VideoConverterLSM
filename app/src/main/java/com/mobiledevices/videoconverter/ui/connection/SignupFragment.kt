@@ -7,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Utils.UserManager
-import com.mobiledevices.videoconverter.viewModel.SignupViewModel
+import com.mobiledevices.videoconverter.Core.Utils.UserManager
+import com.mobiledevices.videoconverter.ViewModel.SignupViewModel
 import com.mobiledevices.videoconverter.databinding.FragmentSignupBinding
-import com.mobiledevices.videoconverter.validation.Validator
-import com.mobiledevices.videoconverter.viewModel.SharedViewModel
 
 class SignupFragment : Fragment() {
 

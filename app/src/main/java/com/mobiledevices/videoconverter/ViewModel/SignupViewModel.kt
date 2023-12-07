@@ -1,12 +1,12 @@
-package com.mobiledevices.videoconverter.viewModel
+package com.mobiledevices.videoconverter.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobiledevices.videoconverter.Model.User
-import com.mobiledevices.videoconverter.Dao.FirestoreRepository
-import com.mobiledevices.videoconverter.Utils.PasswordUtils
-import com.mobiledevices.videoconverter.validation.Validator
+import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
+import com.mobiledevices.videoconverter.Core.Utils.PasswordUtils
+import com.mobiledevices.videoconverter.Core.validation.Validator
 import kotlinx.coroutines.launch
 
 class SignupViewModel : ViewModel() {

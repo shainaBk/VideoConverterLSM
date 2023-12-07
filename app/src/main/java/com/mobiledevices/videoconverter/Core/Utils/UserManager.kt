@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Utils
+package com.mobiledevices.videoconverter.Core.Utils
 
 import com.mobiledevices.videoconverter.Model.User
 

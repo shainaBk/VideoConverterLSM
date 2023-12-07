@@ -12,13 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mobiledevices.videoconverter.Model.Music
-import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.Ui.adapter.MusicHomeAdapter
-import com.mobiledevices.videoconverter.Utils.UserManager
 import com.mobiledevices.videoconverter.databinding.FragmentHomeBinding
-import com.mobiledevices.videoconverter.viewModel.MusicViewModel
-import com.mobiledevices.videoconverter.viewModel.SharedViewModel
+import com.mobiledevices.videoconverter.ViewModel.MusicViewModel
+import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
 import kotlin.random.Random
 
 class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {

@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Service
+package com.mobiledevices.videoconverter.Core.Service
 import android.os.Environment
 import android.util.Log
 import com.chaquo.python.PyObject

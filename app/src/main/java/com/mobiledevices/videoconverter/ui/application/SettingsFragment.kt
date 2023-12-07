@@ -2,9 +2,9 @@ package com.mobiledevices.videoconverter.Ui.application
 
 import com.mobiledevices.videoconverter.Ui.connection.ConnectionActivity
 import com.mobiledevices.videoconverter.databinding.FragmentSettingsBinding
-import com.mobiledevices.videoconverter.viewModel.MusicViewModel
-import com.mobiledevices.videoconverter.viewModel.SettingsViewModel
-import com.mobiledevices.videoconverter.viewModel.SharedViewModel
+import com.mobiledevices.videoconverter.ViewModel.MusicViewModel
+import com.mobiledevices.videoconverter.ViewModel.SettingsViewModel
+import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,10 +15,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Utils.PasswordUtils
-import com.mobiledevices.videoconverter.Utils.UserManager
+import com.mobiledevices.videoconverter.Core.Utils.PasswordUtils
+import com.mobiledevices.videoconverter.Core.Utils.UserManager
 
 
 class SettingsFragment : Fragment() {

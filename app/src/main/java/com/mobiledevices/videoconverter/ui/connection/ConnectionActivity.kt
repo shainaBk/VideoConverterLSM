@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Service.MusicService
+import com.mobiledevices.videoconverter.Core.Service.MusicService
 import com.mobiledevices.videoconverter.databinding.ActivityConnectionBinding
 
 class ConnectionActivity : AppCompatActivity() {
