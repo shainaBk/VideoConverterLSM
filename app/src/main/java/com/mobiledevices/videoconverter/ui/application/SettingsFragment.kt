@@ -11,11 +11,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mobiledevices.videoconverter.R
+import com.mobiledevices.videoconverter.Utils.PasswordUtils
+import com.mobiledevices.videoconverter.Utils.UserManager
 
 
 class SettingsFragment : Fragment() {
@@ -33,17 +36,16 @@ class SettingsFragment : Fragment() {
 
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        Log.i("SomeFragment3","in set ${sharedViewModel.currentUser.value?.id}")
 
         binding.btnChangePassword.setOnClickListener{
             val password = binding.tiEditNewPassword.text.toString()
             val passwordConf = binding.tiEditNewConfPassword.text.toString()
             val userId = sharedViewModel.currentUser.value?.id
-            Log.i("sessionVar2","${sharedViewModel.currentUser.value?.id}")
             if (userId != null) {
                 settingViewModel.checkNewPasswordSettings(password,passwordConf,userId) { isValid, errorMessage ->
                     if (isValid) {
-
+                        sharedViewModel.changePassword(PasswordUtils.hashPassword(password))
+                        Toast.makeText(context, "Mot de passe mit à jours !", Toast.LENGTH_SHORT).show()
                     } else {
                         when{
                             errorMessage.contains("Mot de passe") -> {
@@ -53,7 +55,6 @@ class SettingsFragment : Fragment() {
 
                         }
                     }
-
                 }
             }
 
@@ -61,12 +62,12 @@ class SettingsFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             //var de session
-            Log.i("SomeFragment","${sharedViewModel.currentUser.value?.id}")
-            //sharedViewModel.logoutUser()
-            //Log.i("sessionVar","${sharedViewModel.currentUser.value?.id}")
-            /*activity?.finish()
+            sharedViewModel.logoutUser()
+            UserManager.logOut()
+            Log.i("LogOutSucess","Log out sucessful !!")
+            activity?.finish()
             val intent = Intent(activity, ConnectionActivity::class.java)
-            startActivity(intent)*/
+            startActivity(intent)
         }
 
         binding.btnClearMusic.setOnClickListener {

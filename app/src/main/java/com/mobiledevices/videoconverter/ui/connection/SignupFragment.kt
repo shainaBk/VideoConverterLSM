@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
+import com.mobiledevices.videoconverter.Utils.UserManager
 import com.mobiledevices.videoconverter.viewModel.SignupViewModel
 import com.mobiledevices.videoconverter.databinding.FragmentSignupBinding
 import com.mobiledevices.videoconverter.validation.Validator
@@ -25,7 +26,6 @@ class SignupFragment : Fragment() {
 
 
     private val signupViewModel: SignupViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +33,6 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
-        sharedViewModel.currentUser.observe(viewLifecycleOwner) { user ->
-            Log.i("SomeFragment", "Current user (in sign): ${user?.id}")
-        }
         binding.ibBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -47,6 +44,7 @@ class SignupFragment : Fragment() {
 
             signupViewModel.checkPseudoAndSignUp(pseudo, email, password, repeatPassword,::onUserSignUpSuccess){ isValid, errorMessage ->
                 if (isValid) {
+                    Log.i("SignUpSucess","Sign up sucessful !!")
                     findNavController().navigate(R.id.action_signupFragment_to_applicationActivity)
                 } else {
                     handleValidationErrors(errorMessage)
@@ -56,7 +54,7 @@ class SignupFragment : Fragment() {
         return binding.root
     }
     private fun onUserSignUpSuccess(user: User) {
-        sharedViewModel.loginUser(user)
+        UserManager.logIn(user)
     }
     private fun handleValidationErrors(errorMessage: String) {
         when {

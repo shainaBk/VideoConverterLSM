@@ -15,6 +15,7 @@ import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.Ui.adapter.MusicHomeAdapter
+import com.mobiledevices.videoconverter.Utils.UserManager
 import com.mobiledevices.videoconverter.databinding.FragmentHomeBinding
 import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 import com.mobiledevices.videoconverter.viewModel.SharedViewModel
@@ -50,7 +51,6 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i("SomeFragment3","norm in home ${sharedViewModel.currentUser.value?.id}")
         Log.d(TAG, "Home fragment created")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupRecyclerView()

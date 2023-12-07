@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.Ui.application.ApplicationActivity
+import com.mobiledevices.videoconverter.Utils.UserManager
 import com.mobiledevices.videoconverter.databinding.FragmentLoginBinding
 import com.mobiledevices.videoconverter.viewModel.LoginViewModel
 import com.mobiledevices.videoconverter.viewModel.SharedViewModel
@@ -24,7 +25,6 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val loginViewModel: LoginViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
 
             loginViewModel.checkPseudoPasswordLogIn(pseudo,password,::onUserLogInSuccess) { isValid, errorMessage ->
                 if (isValid) {
-                    Log.i("sessionVar2","${sharedViewModel.currentUser.value?.id}")
+                    Log.i("LogInSucess","Log in sucessful !!")
                     findNavController().navigate(R.id.action_loginFragment_to_applicationActivity)
                 } else {
                     when{
@@ -55,18 +55,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
     private fun onUserLogInSuccess(user: User) {
-        Log.i("SomeFragment3","norm in login ${user.id}")
-        navigateToApplicationActivity(user)
-    }
-    private fun navigateToApplicationActivity(user: User) {
-
-
-        val intent = Intent(context, ApplicationActivity::class.java).apply {
-            putExtra("USER_ID", user.id)
-        }
-        //intent.putExtra("USER_ID", user.id) // ou toute information nécessaire
-        startActivity(intent)
-        //activity?.finish()
+        UserManager.logIn(user)
     }
     override fun onDestroyView() {
         super.onDestroyView()

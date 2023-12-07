@@ -17,8 +17,8 @@ class SharedViewModel : ViewModel() {
     fun logoutUser(){
         _currentUser.value = null
     }
-
-    suspend fun sharedViewModel(userId: String){
-        _currentUser.value = FirestoreRepository.getUser(userId)
+    fun changePassword(password:String){
+        _currentUser.value = currentUser.value?.changePassword(password)
     }
+
 }
