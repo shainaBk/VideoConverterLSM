@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.adapter
+package com.mobiledevices.videoconverter.Ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,23 +8,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
 
-class MusicHomeAdapter(
-    private val musicList: MutableList<Music>,
-    private val downloadListener: OnMusicDownloadListener
-) : RecyclerView.Adapter<MusicHomeAdapter.MusicHomeViewHolder>() {
+class MusicLibraryAdapter(
+    private val musicList: MutableList<Music>
+) : RecyclerView.Adapter<MusicLibraryAdapter.MusicLibraryViewHolder>() {
 
     /**
      * A view holder for the recycler view: it contains the view elements
      */
-    class MusicHomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class MusicLibraryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         val title: TextView = itemView.findViewById(R.id.tv_title)
         val artist: TextView = itemView.findViewById(R.id.tv_artist)
-        val download: ImageButton = itemView.findViewById(R.id.btn_download)
+        val favorite: ImageButton = itemView.findViewById(R.id.btn_favorite)
+        val play: ImageButton = itemView.findViewById(R.id.btn_play)
     }
 
     /**
@@ -38,10 +37,10 @@ class MusicHomeAdapter(
     ) : DiffUtil.Callback() {
         override fun getOldListSize(): Int = oldList.size
         override fun getNewListSize(): Int = newList.size
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
             oldList[oldItemPosition].videoId == newList[newItemPosition].videoId
 
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
             oldList[oldItemPosition] == newList[newItemPosition]
     }
 
@@ -54,35 +53,33 @@ class MusicHomeAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MusicHomeViewHolder {
+    ): MusicLibraryViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_research, parent, false)
-        return MusicHomeViewHolder(itemView)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_library, parent, false)
+        return MusicLibraryViewHolder(itemView)
     }
 
     /**
      * Bind the view holder with the music data
      * @param holder The view holder
-     * @param position The position of the music in the list
+     * @param position The position in the list
      */
-    override fun onBindViewHolder(holder: MusicHomeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MusicLibraryViewHolder, position: Int) {
         val music = musicList[position]
 
         holder.thumbnail.setImageResource(R.drawable.ic_launcher_background)
         holder.title.text = music.title
         holder.artist.text = music.channelTitle
+        updateFavoriteIcon(holder.favorite, music.isFavorite)
 
-        holder.download.setOnClickListener {
-            Snackbar
-                .make(it, "Downloading ${music.title}...", Snackbar.LENGTH_SHORT)
-                .setAction("Close") {}
-                .show()
-            downloadListener.onMusicDownload(music)
+        holder.favorite.setOnClickListener {
+            music.isFavorite = !music.isFavorite
+            updateFavoriteIcon(holder.favorite, music.isFavorite)
         }
     }
 
     /**
-     * Get the number of music in the list
+     * Get the number of items in the list
      * @return The number of music
      */
     override fun getItemCount() = musicList.size
@@ -93,15 +90,22 @@ class MusicHomeAdapter(
      */
     fun updateMusicList(newMusicList: List<Music>) {
         val diffResult = DiffUtil.calculateDiff(MusicDiffCallback(musicList, newMusicList))
+
         musicList.clear()
         musicList.addAll(newMusicList)
         diffResult.dispatchUpdatesTo(this)
     }
 
     /**
-     * Interface to handle the click on the download button
+     * Update the favorite icon
+     * @param favoriteButton The favorite button
+     * @param isFavorite The favorite state
      */
-    interface OnMusicDownloadListener {
-        fun onMusicDownload(music: Music)
+    private fun updateFavoriteIcon(favoriteButton: ImageButton, isFavorite: Boolean) {
+        if (isFavorite) {
+            favoriteButton.setImageResource(R.drawable.ic_favorite_filled)
+        } else {
+            favoriteButton.setImageResource(R.drawable.ic_favorite_border)
+        }
     }
 }

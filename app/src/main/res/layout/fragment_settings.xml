@@ -20,11 +20,11 @@
         app:tint="@color/orange_2" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_old_password"
+        android:id="@+id/ti_new_password"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_old_password"
+        android:hint="@string/enter_new_password"
         app:errorIconDrawable="@drawable/ic_error"
         app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ti_edit_old_password"
+            android:id="@+id/ti_edit_new_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword|textNoSuggestions"
@@ -41,21 +41,21 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_new_password"
+        android:id="@+id/ti_newConf_password"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="@string/enter_new_password"
+        android:hint="@string/enter_newConf_password"
         app:errorIconDrawable="@drawable/ic_error"
         app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ti_old_password"
+        app:layout_constraintTop_toBottomOf="@id/ti_new_password"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ti_edit_new_password"
+            android:id="@+id/ti_edit_newConf_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword|textNoSuggestions"
@@ -71,7 +71,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_new_password" />
+        app:layout_constraintTop_toBottomOf="@+id/ti_newConf_password" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

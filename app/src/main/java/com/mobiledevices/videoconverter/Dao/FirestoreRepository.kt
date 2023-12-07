@@ -25,18 +25,6 @@ class FirestoreRepository {
                 null
             }
         }
-        /*********************** COTE MODELE View!!!!!
-         * EXEMPLE
-         * addUser(newUser) { success, updatedUser ->
-         *     if (success) {
-         *         // Ici, updatedUser contient l'ID Firestore et peut être utilisé pour mettre à jour CurrentUser
-         *         CurrentUser = updatedUser
-         *     } else {
-         *         // Gestion de l'échec
-         *     }
-         * }
-         *
-         ******************************* */
 
         // Méthode pour obtenir un utilisateur par son ID
         suspend fun getUser(userId: String): User? = withContext(Dispatchers.IO) {
@@ -50,6 +38,14 @@ class FirestoreRepository {
             } catch (e: Exception) {
                 Log.w("FirestoreGetUser", "Error getting user", e)
                 null
+            }
+        }
+        suspend fun updatePasswordUser(userId: String, password:String){
+            try {
+                db.collection("users").document(userId).update("password", password).await()
+                // Gérer ici le succès de la mise à jour
+            } catch (e: Exception) {
+                // Gérer ici l'exception
             }
         }
 

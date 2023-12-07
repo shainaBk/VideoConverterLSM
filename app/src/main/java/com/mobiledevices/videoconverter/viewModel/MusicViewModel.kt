@@ -27,6 +27,10 @@ class MusicViewModel : ViewModel() {
     val downloadedMusic: LiveData<List<Music>>
         get() = _musicList.map { music -> music.filter { it.isDownloaded } }
 
+
+
+
+
     /**
      * Add a music to the music list
      * @param music The music to add

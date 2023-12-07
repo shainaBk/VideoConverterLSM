@@ -5,14 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.Dao.FirestoreRepository
+import com.mobiledevices.videoconverter.Utils.PasswordUtils
 import com.mobiledevices.videoconverter.validation.Validator
 import kotlinx.coroutines.launch
 
 class SignupViewModel : ViewModel() {
-    fun signUpUser(pseudo: String, email: String,password:String,onSuccess: (User?) -> Unit, onError: (Exception?) -> Unit){
+    fun signUpUser(pseudo: String, email: String,password:String,onSuccess: (User) -> Unit, onError: (Exception?) -> Unit){
         viewModelScope.launch {
             try {
-                val CurrentUser = FirestoreRepository.addUser(User(id = pseudo.lowercase(),mail = email, password = password))
+                val hashedPassword = PasswordUtils.hashPassword(password)
+                val newUser = User(id = pseudo.lowercase(), mail = email, password = hashedPassword)
+                val CurrentUser = FirestoreRepository.addUser(newUser)
+                if (CurrentUser != null) {
+                    onSuccess(CurrentUser)
+                }
                 Log.i("InfoUserAdd","${CurrentUser.toString()}")
             }catch (e: Exception){
                 onError(e)
@@ -22,23 +28,21 @@ class SignupViewModel : ViewModel() {
     }
 
     /**Validator Part*/
-    fun checkPseudoAndSignUp(pseudo: String, email: String, password: String, repeatPassword: String, onResult: (Boolean, String) -> Unit) {
+    fun checkPseudoAndSignUp(pseudo: String, email: String, password: String, repeatPassword: String,onSuccess: (User) -> Unit, onResult: (Boolean, String) -> Unit) {
         viewModelScope.launch {
-            if (!Validator.isValidLogin(pseudo)) {
+            if (!Validator.isValidPseudoSignUp(pseudo)) {
                 onResult(false, "Pseudo non valide ou déjà utilisé")
-            } else if (!Validator.isValidEmail(email)) {
+            } else if (!Validator.isValidEmailSignUp(email)) {
                 onResult(false, "Adresse email invalide (règle: name@truc.chose)")
-            } else if (!Validator.isValidPassword(password, repeatPassword)) {
+            } else if (!Validator.isValidPasswordCreate(password, repeatPassword)) {
                 onResult(false, "Mot de passe invalide ou ne correspond pas (règle: min 6 caractères)")
 
             } else {
-                signUpUser(pseudo, email, password, ::onUserSignUpSuccess, ::onUserSignUpError)
+                signUpUser(pseudo, email, password, onSuccess, ::onUserSignUpError)
                 onResult(true, "")
+
             }
         }
-    }
-    private fun onUserSignUpSuccess(user: User?) {
-        Log.i("SuccessSignUp","Success on sign up:${user.toString()}")
     }
 
     private fun onUserSignUpError(exception: Exception?) {

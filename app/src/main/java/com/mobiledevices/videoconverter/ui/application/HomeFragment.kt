@@ -12,10 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mobiledevices.videoconverter.Model.Music
+import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.adapter.MusicHomeAdapter
+import com.mobiledevices.videoconverter.Ui.adapter.MusicHomeAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentHomeBinding
 import com.mobiledevices.videoconverter.viewModel.MusicViewModel
+import com.mobiledevices.videoconverter.viewModel.SharedViewModel
 import kotlin.random.Random
 
 class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
@@ -34,6 +36,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      * We use the view model to store the music list during the fragment lifecycle
      */
     private val viewModel: MusicViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     /**
      * Create the view and the recycler view adapter when the fragment view is created (rotation, ...)
@@ -47,12 +50,12 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.i("SomeFragment3","norm in home ${sharedViewModel.currentUser.value?.id}")
         Log.d(TAG, "Home fragment created")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupRecyclerView()
         observeMusicList()
         setupSearchButton()
-
         return binding.root
     }
 

@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobiledevices.videoconverter.Model.Music
-import com.mobiledevices.videoconverter.adapter.MusicLibraryAdapter
+import com.mobiledevices.videoconverter.Ui.adapter.MusicLibraryAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentLibraryBinding
 import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 
