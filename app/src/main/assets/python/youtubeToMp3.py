@@ -5,13 +5,13 @@ from pathlib import Path
 import logging
 import json
 #PART GET URL
-def getMusics(title):
+def getMusics(title,nbTitre):
     youtube = build('youtube', 'v3', developerKey='AIzaSyD-JFJ1hIzgbEuz5KpcTMNCdizHp_8Zhss')
 
     request = youtube.search().list(
         q=title, # Termes de recherche
         part='snippet', # Utilisez 'snippet' ici
-        maxResults=3 # Nombre de résultats par requête
+        maxResults=nbTitre # Nombre de résultats par requête
     )
 
     response = request.execute()
@@ -21,11 +21,11 @@ def getMusics(title):
         if item['id']['kind'] == 'youtube#video':
             video_id = item['id']['videoId']
             video_data = {
-                'video_id': video_id,
-                'video_url': f'https://www.youtube.com/watch?v={video_id}',
-                'thumbnail_url': item['snippet']['thumbnails']['high']['url'],
+                'videoId': video_id,
+                'videoUrl': f'https://www.youtube.com/watch?v={video_id}',
+                'thumbnailUrl': item['snippet']['thumbnails']['high']['url'],
                 'title': item['snippet']['title'],
-                'channel_title': item['snippet']['channelTitle']
+                'channelTitle': item['snippet']['channelTitle']
             }
             processed_videos.append(video_data)
 

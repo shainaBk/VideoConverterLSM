@@ -34,7 +34,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
     /**
      * We use the view model to store the music list during the fragment lifecycle
      */
-    private val viewModel: MusicViewModel by activityViewModels()
+    private val musicViewModel: MusicViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     /**
@@ -72,7 +72,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     override fun onMusicDownload(music: Music) {
         Log.d(TAG, "Music downloaded: $music")
-        viewModel.markMusicAsDownloaded(music)
+        musicViewModel.markMusicAsDownloaded(music)
     }
 
     /**
@@ -89,10 +89,11 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
 
     /**
      * Observe the music list to update the recycler view adapter
+     * TODO: change to currentUser list
      */
     private fun observeMusicList() {
         Log.d(TAG, "Observe music list")
-        viewModel.nonDownloadedMusic.observe(viewLifecycleOwner, Observer { nonDownloadedList ->
+        musicViewModel.nonDownloadedMusic.observe(viewLifecycleOwner, Observer { nonDownloadedList ->
             binding.rvDownload.adapter?.let { adapter ->
                 if (adapter is MusicHomeAdapter) {
                     val musicListString = nonDownloadedList.joinToString("\n") { it.toString() }
@@ -125,16 +126,16 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
             .setTitle(getString(R.string.search_music))
             .setView(dialogView)
             .setPositiveButton("Search") { _, _ ->
-                val musicName = editText.text.toString()
-                val newMusic =
-                    Music(
-                        Random.nextInt(1, 100000).toString(),
-                        musicName,
-                        musicName,
-                        musicName,
-                        musicName
-                    )
-                viewModel.addMusic(newMusic)
+                //NEW
+                musicViewModel.searchMusique(editText.text.toString(),
+                    { mS ->musicViewModel.setMusicList(mS)
+                    }, { isValid, message ->
+                        if(isValid){
+                            Log.i("SUCCESSMUSIC",message)
+                        }else{
+                            Log.i("FAILMUSIC",message)
+                        }
+                    })
             }
             .setNegativeButton("Cancel", null)
             .show()

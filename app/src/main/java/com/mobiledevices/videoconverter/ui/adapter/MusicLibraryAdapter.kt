@@ -1,5 +1,6 @@
 package com.mobiledevices.videoconverter.Ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
 
@@ -67,7 +69,14 @@ class MusicLibraryAdapter(
     override fun onBindViewHolder(holder: MusicLibraryViewHolder, position: Int) {
         val music = musicList[position]
 
-        holder.thumbnail.setImageResource(R.drawable.ic_launcher_background)
+        holder.thumbnail.load(music.thumbnailUrl) {
+            crossfade(true)
+            error(R.drawable.ic_error) // Image d'erreur
+            listener(onError = { _, throwable ->
+                Log.e("ImageLoadError", "Erreur lors du chargement de l'image: ${throwable}")
+            })
+        }
+
         holder.title.text = music.title
         holder.artist.text = music.channelTitle
         updateFavoriteIcon(holder.favorite, music.isFavorite)

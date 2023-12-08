@@ -1,11 +1,13 @@
 package com.mobiledevices.videoconverter.Ui.application
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.mobiledevices.videoconverter.Core.Service.MusicService
 import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.Core.Utils.UserManager
 import com.mobiledevices.videoconverter.databinding.ActivityApplicationBinding
@@ -17,6 +19,7 @@ class ApplicationActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityApplicationBinding.inflate(layoutInflater)

@@ -13,7 +13,7 @@ public class MusicService {
 
         fun getMusics(search: String): List<Music> {
             return try {
-                val jsonResult = pythonScript.callAttr("getMusics", search).toString()
+                val jsonResult = pythonScript.callAttr("getMusics", search, 7).toString()
                 Log.d("JSONRESULT", "here=> "+ jsonResult)
                 val type = object : TypeToken<List<Music>>() {}.type
                 return Gson().fromJson(jsonResult, type)

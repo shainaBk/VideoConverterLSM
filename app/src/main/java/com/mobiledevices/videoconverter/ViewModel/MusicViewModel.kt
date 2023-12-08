@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import com.mobiledevices.videoconverter.Core.Service.MusicService
 import com.mobiledevices.videoconverter.Model.Music
+import kotlinx.coroutines.launch
 
 class MusicViewModel : ViewModel() {
     companion object {
@@ -29,17 +32,32 @@ class MusicViewModel : ViewModel() {
 
 
 
+    /**
+     * Search Musique
+     * */
 
+    fun searchMusique(query:String, onSuccess: (List<Music>)-> Unit,onResult: (Boolean, String) -> Unit ){
+        //Mettre en place une coroutine
+        viewModelScope.launch {
+            val MusicListsFound = MusicService.getMusics(query)
+            if(!MusicListsFound.none()){
+                onSuccess(MusicListsFound)
+                onResult(true,"Musiques récupérés: ${MusicListsFound.toString()}")
+            }else{
+                onResult(false,"Aucune Musique trouvé!")
+            }
+        }
+    }
 
     /**
      * Add a music to the music list
      * @param music The music to add
      */
-    fun addMusic(music: Music) {
-        val currentList = _musicList.value ?: mutableListOf()
-        currentList.add(music)
+    fun setMusicList(musics: List<Music>) {
+        var currentList = _musicList.value ?: mutableListOf()
+        currentList = musics.toMutableList()
         _musicList.postValue(currentList) // Update the mutable live data
-        Log.d(TAG, "Music added: $music")
+        Log.d(TAG, "Music added: $musics")
         Log.d(TAG, "Current music list: $currentList")
     }
 

@@ -13,8 +13,8 @@ class Music(
     var isDownloaded: Boolean = false
 ) {
     override fun toString(): String {
-        val downloaded: String = if (isDownloaded) "downloaded" else "NOTDownloaded"
-        val favorite: String = if (isFavorite) "favorite" else "NOTFavorite"
-        return "> $title by $channelTitle - {$downloaded, $favorite}"
+       /* val downloaded: String = if (isDownloaded) "downloaded" else "NOTDownloaded"
+        val favorite: String = if (isFavorite) "favorite" else "NOTFavorite"*/
+        return "> $title by $channelTitle"
     }
 }

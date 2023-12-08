@@ -105,6 +105,8 @@ dependencies {
     // dependance for hash
     implementation("org.bouncycastle:bcprov-jdk15on:1.70")
 
+    //dependance pour image
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
 
 
