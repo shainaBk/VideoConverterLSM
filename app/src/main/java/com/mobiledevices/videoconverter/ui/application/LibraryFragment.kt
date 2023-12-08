@@ -13,6 +13,7 @@ import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.Ui.adapter.MusicLibraryAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentLibraryBinding
 import com.mobiledevices.videoconverter.ViewModel.MusicViewModel
+import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
 
 class LibraryFragment : Fragment() {
 
@@ -29,8 +30,8 @@ class LibraryFragment : Fragment() {
     /**
      * We use the view model to store the music list during the fragment lifecycle
      */
-    private val viewModel: MusicViewModel by activityViewModels()
-
+    private val musicViewModel: MusicViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     /**
      * Create the view and the recycler view adapter when the fragment view is created (rotation, ...)
      * @param inflater The layout inflater: XML to view
@@ -71,7 +72,15 @@ class LibraryFragment : Fragment() {
     }
 
     private fun observeDownloadedMusic() {
-        viewModel.downloadedMusic.observe(viewLifecycleOwner, Observer { downloadedList ->
+        //new
+        sharedViewModel.currentUser.observe(viewLifecycleOwner, Observer { currentUser ->
+            currentUser?.librarie?.let { library ->
+                (binding.rvLibrary.adapter as? MusicLibraryAdapter)?.updateMusicList(library)
+            }
+        })
+        //Old
+        /*
+        musicViewModel.downloadedMusic.observe(viewLifecycleOwner, Observer { downloadedList ->
             binding.rvLibrary.adapter?.let { adapter ->
                 if (adapter is MusicLibraryAdapter) {
                     val musicListString = downloadedList.joinToString("\n") { it.toString() }
@@ -80,7 +89,7 @@ class LibraryFragment : Fragment() {
                     updateNoResultImage(downloadedList)
                 }
             }
-        })
+        })*/
     }
 
     /**

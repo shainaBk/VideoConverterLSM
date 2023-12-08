@@ -80,7 +80,11 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     private fun setupRecyclerView() {
         Log.d(TAG, "Setup HOME recycler view")
-        val adapter = MusicHomeAdapter(mutableListOf(), this)
+        val adapter = MusicHomeAdapter(
+            mutableListOf(),
+            this) { music ->
+            sharedViewModel.addMusicToLibrary(music)
+        }
         binding.rvDownload.apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter

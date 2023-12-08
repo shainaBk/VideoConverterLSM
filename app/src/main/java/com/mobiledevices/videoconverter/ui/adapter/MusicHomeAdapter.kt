@@ -21,7 +21,8 @@ import com.mobiledevices.videoconverter.R
 
 class MusicHomeAdapter(
     private val musicList: MutableList<Music>,
-    private val downloadListener: OnMusicDownloadListener
+    private val downloadListener: OnMusicDownloadListener,
+    private val onDownloadClicked: (Music) -> Unit
 ) : RecyclerView.Adapter<MusicHomeAdapter.MusicHomeViewHolder>() {
 
     /**
@@ -90,7 +91,9 @@ class MusicHomeAdapter(
                 .make(it, "Downloading ${music.title}...", Snackbar.LENGTH_SHORT)
                 .setAction("Close") {}
                 .show()
-            downloadListener.onMusicDownload(music)
+
+            downloadListener.onMusicDownload(music)//MusicViewModel
+            onDownloadClicked(music) // ShareViewModel
         }
     }
 
