@@ -35,5 +35,19 @@ class SharedViewModel : ViewModel() {
             }
         }
     }
+    fun removeMusicFromLibrary(music: Music) {
+        val user = _currentUser.value
+        user?.let {
+            val updatedLibrary = user.librarie.filter { it.videoId != music.videoId }
+
+            _currentUser.value = user.copy(librarie = updatedLibrary)
+
+            viewModelScope.launch{
+                FirestoreRepository.removeMusicFromUser(user.id, music)
+            }
+        }
+    }
+
+
 
 }

@@ -29,6 +29,7 @@
     <string name="enter_newConf_password">Confirm your new password</string>
     <string name="clear_music">Clear music</string>
     <string name="favorite_button">Favorite button</string>
+    <string name="delete_button">delete button</string>
     <string name="play_button">Play button</string>
     <string name="music_title">Music title</string>
     <string name="artist_name">Artist name</string>

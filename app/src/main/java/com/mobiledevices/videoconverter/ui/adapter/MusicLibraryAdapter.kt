@@ -10,11 +10,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
+import com.mobiledevices.videoconverter.Core.Utils.UserManager
 import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
 
 class MusicLibraryAdapter(
-    private val musicList: MutableList<Music>
+    private val musicList: MutableList<Music>,
+    private val removeListener: OnMusicRemoveListener
 ) : RecyclerView.Adapter<MusicLibraryAdapter.MusicLibraryViewHolder>() {
 
     /**
@@ -24,7 +27,8 @@ class MusicLibraryAdapter(
         val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         val title: TextView = itemView.findViewById(R.id.tv_title)
         val artist: TextView = itemView.findViewById(R.id.tv_artist)
-        val favorite: ImageButton = itemView.findViewById(R.id.btn_favorite)
+        //val favorite: ImageButton = itemView.findViewById(R.id.btn_favorite)
+        val deleteButton: ImageButton = itemView.findViewById(R.id.btn_delete)
         val play: ImageButton = itemView.findViewById(R.id.btn_play)
     }
 
@@ -68,7 +72,7 @@ class MusicLibraryAdapter(
      */
     override fun onBindViewHolder(holder: MusicLibraryViewHolder, position: Int) {
         val music = musicList[position]
-
+        Log.i("info posi music","info posi: ${position}")
         holder.thumbnail.load(music.thumbnailUrl) {
             crossfade(true)
             error(R.drawable.ic_error) // Image d'erreur
@@ -79,12 +83,15 @@ class MusicLibraryAdapter(
 
         holder.title.text = music.title
         holder.artist.text = music.channelTitle
-        updateFavoriteIcon(holder.favorite, music.isFavorite)
 
-        holder.favorite.setOnClickListener {
-            music.isFavorite = !music.isFavorite
-            updateFavoriteIcon(holder.favorite, music.isFavorite)
+        holder.deleteButton.setOnClickListener {
+            Log.i("info posi music 2","delete at posi: ${position}")
+            removeListener.onMusicRemove(music)
         }
+    }
+
+    interface OnMusicRemoveListener {
+        fun onMusicRemove(music: Music)
     }
 
     /**
@@ -110,11 +117,11 @@ class MusicLibraryAdapter(
      * @param favoriteButton The favorite button
      * @param isFavorite The favorite state
      */
-    private fun updateFavoriteIcon(favoriteButton: ImageButton, isFavorite: Boolean) {
+    /*private fun updateFavoriteIcon(favoriteButton: ImageButton, isFavorite: Boolean) {
         if (isFavorite) {
             favoriteButton.setImageResource(R.drawable.ic_favorite_filled)
         } else {
             favoriteButton.setImageResource(R.drawable.ic_favorite_border)
         }
-    }
+    }*/
 }

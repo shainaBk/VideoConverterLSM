@@ -88,7 +88,28 @@ class FirestoreRepository {
                 emptyList<Music>()
             }
         }
+        /**
+         * Méthode delete music
+         * */
+        suspend fun removeMusicFromUser(userId: String, musicToRemove: Music): Boolean = withContext(Dispatchers.IO) {
+            try {
+                // Étape 1 : Récupérer l'utilisateur et sa librairie musicale actuelle
+                val userDocumentRef = db.collection("users").document(userId)
+                val userSnapshot = userDocumentRef.get().await()
+                val user = userSnapshot.toObject(User::class.java)
+                val currentLibrary = user?.librarie?.toMutableList() ?: mutableListOf()
 
+                // Étape 2 : Retirer la musique spécifique de la librairie
+                currentLibrary.removeAll { it.videoId == musicToRemove.videoId }
+
+                // Étape 3 : Mettre à jour le document de l'utilisateur
+                userDocumentRef.update("librarie", currentLibrary).await()
+                true
+            } catch (e: Exception) {
+                Log.w("FirestoreRemoveMusic", "Error removing music from user", e)
+                false
+            }
+        }
         /* EXEMPLE UTILISATION METHODE!!!!
         /**Exemple pour ajouter un utilisateur**/
         val newMusic = Music("videoId", "videoUrl", "thumbnailUrl", "Title", "Channel")

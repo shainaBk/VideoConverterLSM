@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
 import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.Ui.adapter.MusicLibraryAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentLibraryBinding
 import com.mobiledevices.videoconverter.ViewModel.MusicViewModel
 import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
+import kotlinx.coroutines.launch
 
-class LibraryFragment : Fragment() {
+class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
 
     companion object {
         private const val TAG = "LibraryFragment"
@@ -63,12 +66,18 @@ class LibraryFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val adapter = MusicLibraryAdapter(mutableListOf())
+        val adapter = MusicLibraryAdapter(mutableListOf(),this)
         Log.d(TAG, "Setup LIB recycler view")
         binding.rvLibrary.apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
+    }
+
+    override fun onMusicRemove(music: Music) {
+        sharedViewModel.removeMusicFromLibrary(music)
+    //(binding.rvLibrary.adapter as? MusicLibraryAdapter)?.removeMusic(music)
+
     }
 
     private fun observeDownloadedMusic() {
@@ -78,18 +87,6 @@ class LibraryFragment : Fragment() {
                 (binding.rvLibrary.adapter as? MusicLibraryAdapter)?.updateMusicList(library)
             }
         })
-        //Old
-        /*
-        musicViewModel.downloadedMusic.observe(viewLifecycleOwner, Observer { downloadedList ->
-            binding.rvLibrary.adapter?.let { adapter ->
-                if (adapter is MusicLibraryAdapter) {
-                    val musicListString = downloadedList.joinToString("\n") { it.toString() }
-                    Log.d(TAG, "Update music list:\n$musicListString")
-                    adapter.updateMusicList(downloadedList)
-                    updateNoResultImage(downloadedList)
-                }
-            }
-        })*/
     }
 
     /**
