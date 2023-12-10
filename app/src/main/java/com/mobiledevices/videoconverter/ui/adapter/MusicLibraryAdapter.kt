@@ -14,7 +14,8 @@ import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
 import com.mobiledevices.videoconverter.Core.Utils.UserManager
 import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
-
+import android.content.Intent
+import android.net.Uri
 class MusicLibraryAdapter(
     private val musicList: MutableList<Music>,
     private val removeListener: OnMusicRemoveListener
@@ -79,6 +80,13 @@ class MusicLibraryAdapter(
             listener(onError = { _, throwable ->
                 Log.e("ImageLoadError", "Erreur lors du chargement de l'image: ${throwable}")
             })
+        }
+
+        //Open of video in nav
+        holder.play.setOnClickListener {
+            // Ouvrir l'URL dans un navigateur externe
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(music.videoUrl))
+            holder.itemView.context.startActivity(intent)
         }
 
         holder.title.text = music.title
