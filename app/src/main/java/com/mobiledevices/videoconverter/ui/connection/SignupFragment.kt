@@ -49,9 +49,19 @@ class SignupFragment : Fragment() {
         }
         return binding.root
     }
+
+    /**
+     * onUserSignUpSuccess: Gère le succès de l'inscription de l'utilisateur.
+     * @param user L'objet User représentant l'utilisateur inscrit.
+     */
     private fun onUserSignUpSuccess(user: User) {
         UserManager.logIn(user)
     }
+
+    /**
+     * handleValidationErrors: Gère les erreurs de validation lors de l'inscription.
+     * @param errorMessage Le message d'erreur de validation.
+     */
     private fun handleValidationErrors(errorMessage: String) {
         when {
             errorMessage.contains("Pseudo") -> binding.tiEditUsername.error = errorMessage

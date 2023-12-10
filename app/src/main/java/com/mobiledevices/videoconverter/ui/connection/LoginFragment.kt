@@ -49,9 +49,18 @@ class LoginFragment : Fragment() {
         }
         return binding.root
     }
+
+    /**
+     * onUserLogInSuccess: Gère le succès de la connexion de l'utilisateur.
+     * @param user L'objet User représentant l'utilisateur connecté.
+     */
     private fun onUserLogInSuccess(user: User) {
         UserManager.logIn(user)
     }
+
+    /**
+     * onDestroyView: Nettoie les ressources liées à la vue lorsque la vue du fragment est détruite.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

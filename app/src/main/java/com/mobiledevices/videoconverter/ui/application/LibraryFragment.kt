@@ -33,8 +33,8 @@ class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
     /**
      * We use the view model to store the music list during the fragment lifecycle
      */
-    private val musicViewModel: MusicViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
     /**
      * Create the view and the recycler view adapter when the fragment view is created (rotation, ...)
      * @param inflater The layout inflater: XML to view
@@ -51,13 +51,13 @@ class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
         Log.d(TAG, "Library fragment created")
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         setupRecyclerView()
-        observeDownloadedMusic()
+        observeLibraryMusic()
 
         return binding.root
     }
 
     /**
-     * Destroy the view binding when the fragment view is destroyed
+     * Détruit le binding lorsque la vue du fragment est détruite.
      */
     override fun onDestroyView() {
         Log.d(TAG, "Library fragment destroyed")
@@ -65,6 +65,9 @@ class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
         _binding = null
     }
 
+    /**
+     * Configure le RecyclerView et son adaptateur pour afficher la liste de musiques.
+     */
     private fun setupRecyclerView() {
         val adapter = MusicLibraryAdapter(mutableListOf(),this)
         Log.d(TAG, "Setup LIB recycler view")
@@ -74,13 +77,17 @@ class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
         }
     }
 
+    /**
+     * Gère la suppression d'une musique de la bibliothèque utilisateur.
+     */
     override fun onMusicRemove(music: Music) {
         sharedViewModel.removeMusicFromLibrary(music)
-    //(binding.rvLibrary.adapter as? MusicLibraryAdapter)?.removeMusic(music)
-
     }
 
-    private fun observeDownloadedMusic() {
+    /**
+     * Observe les modifications de la bibliothèque musicale de l'utilisateur et met à jour l'interface.
+     */
+    private fun observeLibraryMusic() {
         //new
         sharedViewModel.currentUser.observe(viewLifecycleOwner, Observer { currentUser ->
             currentUser?.librarie?.let { library ->

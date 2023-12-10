@@ -14,7 +14,11 @@ class FirestoreRepository {
     companion object {
         private val db = Firebase.firestore
 
-        // Méthode pour ajouter un nouvel utilisateur
+        /**
+         * Ajoute un utilisateur à Firestore.
+         * @param user L'utilisateur à ajouter.
+         * @return L'utilisateur ajouté ou null en cas d'échec.
+         */
         suspend fun addUser(user: User): User? = withContext(Dispatchers.IO) {
             try {
                 db.collection("users").document(user.id).set(user).await()
@@ -26,7 +30,11 @@ class FirestoreRepository {
             }
         }
 
-        // Méthode pour obtenir un utilisateur par son ID
+        /**
+         * Récupère un utilisateur par son ID depuis Firestore.
+         * @param userId L'ID de l'utilisateur à récupérer.
+         * @return L'utilisateur récupéré ou null si non trouvé ou en cas d'erreur.
+         */
         suspend fun getUser(userId: String): User? = withContext(Dispatchers.IO) {
             try {
                 val documentReference = db.collection("users").document(userId).get().await()
@@ -40,6 +48,12 @@ class FirestoreRepository {
                 null
             }
         }
+
+        /**
+         * Met à jour le mot de passe d'un utilisateur dans Firestore.
+         * @param userId L'ID de l'utilisateur dont le mot de passe doit être mis à jour.
+         * @param password Le nouveau mot de passe.
+         */
         suspend fun updatePasswordUser(userId: String, password:String){
             try {
                 db.collection("users").document(userId).update("password", password).await()
@@ -49,7 +63,12 @@ class FirestoreRepository {
             }
         }
 
-        // Méthode pour ajouter une musique
+        /**
+         * Ajoute une musique à la librairie d'un utilisateur dans Firestore.
+         * @param userId L'ID de l'utilisateur.
+         * @param music La musique à ajouter.
+         * @return True si l'ajout est réussi, False sinon.
+         */
         suspend fun addMusicToUser(userId: String, music: Music): Boolean = withContext(Dispatchers.IO) {
             try {
                 // Étape 1 : Récupérer l'utilisateur et sa librairie musicale actuelle
@@ -70,7 +89,11 @@ class FirestoreRepository {
             }
         }
 
-        // Méthode pour obtenir des musiques
+        /**
+         * Récupère la librairie musicale d'un utilisateur depuis Firestore.
+         * @param userId L'ID de l'utilisateur dont la librairie est à récupérer.
+         * @return La liste des musiques de l'utilisateur.
+         */
         suspend fun getMusicsFromUser(userId: String): List<Music> = withContext(Dispatchers.IO) {
             try {
                 // Récupérer le document de l'utilisateur
@@ -88,9 +111,13 @@ class FirestoreRepository {
                 emptyList<Music>()
             }
         }
+
         /**
-         * Méthode delete music
-         * */
+         * Supprime une musique de la librairie d'un utilisateur dans Firestore.
+         * @param userId L'ID de l'utilisateur.
+         * @param musicToRemove La musique à supprimer.
+         * @return True si la suppression est réussie, False sinon.
+         */
         suspend fun removeMusicFromUser(userId: String, musicToRemove: Music): Boolean = withContext(Dispatchers.IO) {
             try {
                 // Étape 1 : Récupérer l'utilisateur et sa librairie musicale actuelle
@@ -110,38 +137,6 @@ class FirestoreRepository {
                 false
             }
         }
-        /* EXEMPLE UTILISATION METHODE!!!!
-        /**Exemple pour ajouter un utilisateur**/
-        val newMusic = Music("videoId", "videoUrl", "thumbnailUrl", "Title", "Channel")
-        val newMusic2 = Music("videoId2", "videoUrl2", "thumbnailUrl2", "Title2", "Channel2")
-        val newMusic3 = Music("videoId3", "test", "thumbndddd", "Title3", "Channel2")
-        val newUser = User(null, "user@example.com", "password123", listOf(newMusic,newMusic2))
-        var currentUser = User()
-
-        //TODO: à mettre dans le view model
-        lifecycleScope.launch {
-            //Add User
-            val updatedUser = FirestoreRepository.addUser(newUser)
-            if (updatedUser != null) {
-                currentUser = updatedUser.copy()
-                Log.i(
-                    "SUCCESSSadd",
-                    "Success on get info  ${updatedUser.id}, Email: ${updatedUser.mail}"
-                )
-            }
-            //Get User
-            val user = FirestoreRepository.getUser("updatedUser.id")
-            Log.i("SUCCESSSget","Success on get info  ${currentUser.id}, Email: ${currentUser.mail}")
-            //Add Music
-            val isMusicAdded = currentUser.id?.let { FirestoreRepository.addMusicToUser(it,newMusic3) }
-            Log.i("SUCCESSSaddM","Success on add Music is: ${isMusicAdded}")
-            //Get Musics
-            val musics = currentUser.id?.let { FirestoreRepository.getMusicsFromUser(it) }
-            Log.i("SUCCESSSgetM","Success on add Music is: ${musics.toString()}")
-        }
-         */
-
-
 
     }
 

@@ -18,7 +18,10 @@ import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
 
 
-
+/**
+ * Adaptateur pour le RecyclerView dans le fragment Home. Gère l'affichage et les interactions avec
+ * la liste des musiques trouvées lors de la recherche.
+ */
 class MusicHomeAdapter(
     private val musicList: MutableList<Music>,
     private val downloadListener: OnMusicDownloadListener,

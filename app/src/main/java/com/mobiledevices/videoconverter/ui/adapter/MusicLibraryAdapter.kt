@@ -28,7 +28,6 @@ class MusicLibraryAdapter(
         val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         val title: TextView = itemView.findViewById(R.id.tv_title)
         val artist: TextView = itemView.findViewById(R.id.tv_artist)
-        //val favorite: ImageButton = itemView.findViewById(R.id.btn_favorite)
         val deleteButton: ImageButton = itemView.findViewById(R.id.btn_delete)
         val play: ImageButton = itemView.findViewById(R.id.btn_play)
     }
@@ -119,17 +118,4 @@ class MusicLibraryAdapter(
         musicList.addAll(newMusicList)
         diffResult.dispatchUpdatesTo(this)
     }
-
-    /**
-     * Update the favorite icon
-     * @param favoriteButton The favorite button
-     * @param isFavorite The favorite state
-     */
-    /*private fun updateFavoriteIcon(favoriteButton: ImageButton, isFavorite: Boolean) {
-        if (isFavorite) {
-            favoriteButton.setImageResource(R.drawable.ic_favorite_filled)
-        } else {
-            favoriteButton.setImageResource(R.drawable.ic_favorite_border)
-        }
-    }*/
 }

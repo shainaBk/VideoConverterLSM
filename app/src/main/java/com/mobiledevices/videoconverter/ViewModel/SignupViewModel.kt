@@ -10,7 +10,15 @@ import com.mobiledevices.videoconverter.Core.validation.Validator
 import kotlinx.coroutines.launch
 
 class SignupViewModel : ViewModel() {
-    /**Validator Part*/
+    /**
+     * checkPseudoAndSignUp: Vérifie la validité des informations de l'utilisateur et procède à l'inscription.
+     * @param pseudo Le pseudonyme de l'utilisateur.
+     * @param email L'adresse e-mail de l'utilisateur.
+     * @param password Le mot de passe de l'utilisateur.
+     * @param repeatPassword Le mot de passe répété pour vérification.
+     * @param onSuccess Fonction à exécuter en cas de succès de l'inscription.
+     * @param onResult Fonction callback pour indiquer le résultat de l'opération.
+     */
     fun checkPseudoAndSignUp(pseudo: String, email: String, password: String, repeatPassword: String,onSuccess: (User) -> Unit, onResult: (Boolean, String) -> Unit) {
         viewModelScope.launch {
             if (!Validator.isValidPseudoSignUp(pseudo)) {
@@ -38,6 +46,10 @@ class SignupViewModel : ViewModel() {
         }
     }
 
+    /**
+     * onUserSignUpError: Gère les erreurs survenues lors de la tentative d'inscription de l'utilisateur.
+     * @param exception L'exception survenue lors de la tentative d'inscription.
+     */
     private fun onUserSignUpError(exception: Exception?) {
         Log.i("FailsSignUp","Fails on sign up")
     }

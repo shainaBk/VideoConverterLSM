@@ -75,6 +75,9 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * onDestroyView: Nettoie et libère le binding lors de la destruction de la vue du fragment.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -31,25 +31,19 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="206dp"
+                android:layout_height="45dp"
                 android:text="@string/music_title"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_artist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="171dp"
+                android:layout_height="31dp"
                 android:text="@string/artist_name"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tv_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/duration"
-                android:textSize="14sp" />
 
         </LinearLayout>
 

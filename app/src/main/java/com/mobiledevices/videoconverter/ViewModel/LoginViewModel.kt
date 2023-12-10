@@ -8,7 +8,13 @@ import com.mobiledevices.videoconverter.Core.validation.Validator
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-    /**Validator Part*/
+    /**
+     * checkPseudoPasswordLogIn: Valide le pseudo et le mot de passe de l'utilisateur pour la connexion.
+     * @param pseudo Le pseudo de l'utilisateur.
+     * @param password Le mot de passe de l'utilisateur.
+     * @param onSuccess Fonction de callback appelée en cas de succès avec l'utilisateur connecté.
+     * @param onResult Fonction de callback appelée avec le résultat de la validation (succès ou échec) et un message d'erreur ou de succès.
+     */
     fun checkPseudoPasswordLogIn(pseudo: String, password: String, onSuccess: (User) -> Unit, onResult: (Boolean, String) -> Unit){
         viewModelScope.launch {
             if (!Validator.isValidPseudoLogIn(pseudo)){
