@@ -23,8 +23,6 @@ class MusicViewModel : ViewModel() {
     /**
      * Expose the music list as a live data
      */
-    val musicList: LiveData<List<Music>>
-        get() = _musicList.map { it.toList() }
     val nonDownloadedMusic: LiveData<List<Music>>
         get() = _musicList.map { music -> music.filter { !it.isDownloaded } }
     val downloadedMusic: LiveData<List<Music>>
@@ -42,10 +40,10 @@ class MusicViewModel : ViewModel() {
     ) {
         //Mettre en place une coroutine
         viewModelScope.launch {
-            val MusicListsFound = MusicService.getMusics(query)
-            if (!MusicListsFound.none()) {
-                onSuccess(MusicListsFound)
-                onResult(true, "Musiques récupérés: $MusicListsFound")
+            val musicListsFound = MusicService.getMusics(query)
+            if (!musicListsFound.none()) {
+                onSuccess(musicListsFound)
+                onResult(true, "Musiques récupérés: $musicListsFound")
             } else {
                 onResult(false, "Aucune Musique trouvé!")
             }
@@ -54,11 +52,10 @@ class MusicViewModel : ViewModel() {
 
     /**
      * Add a music to the music list
-     * @param music The music to add
+     * @param musics The music to add
      */
     fun setMusicList(musics: List<Music>) {
-        var currentList = _musicList.value ?: mutableListOf()
-        currentList = musics.toMutableList()
+        val currentList = musics.toMutableList()
         _musicList.postValue(currentList) // Update the mutable live data
         Log.d(TAG, "Music added: $musics")
         Log.d(TAG, "Current music list: $currentList")

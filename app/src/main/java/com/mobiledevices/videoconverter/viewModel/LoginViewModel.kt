@@ -32,9 +32,7 @@ class LoginViewModel : ViewModel() {
                     onSuccess(currentUser)
                 }
                 onResult(true, "Erreur de connexion")
-
             }
-
         }
     }
 }

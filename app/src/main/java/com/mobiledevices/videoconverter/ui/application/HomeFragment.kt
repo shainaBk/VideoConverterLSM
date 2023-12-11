@@ -17,6 +17,7 @@ import com.mobiledevices.videoconverter.ui.adapter.MusicHomeAdapter
 import com.mobiledevices.videoconverter.viewModel.MusicViewModel
 import com.mobiledevices.videoconverter.viewModel.SharedViewModel
 
+
 class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
 
     companion object {
@@ -115,7 +116,15 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     private fun setupSearchButton() {
         binding.newSearch.setOnClickListener {
-            openSearchDialog()
+            if (isConnected()) {
+                openSearchDialog()
+            } else {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("No internet connection")
+                    .setMessage("Please check your internet connection")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
         }
     }
 
@@ -153,5 +162,10 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     private fun updateNoResultImage(list: List<Music>) {
         binding.ivNoResult.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun isConnected(): Boolean {
+        val command = "ping -c 1 google.com"
+        return Runtime.getRuntime().exec(command).waitFor() == 0
     }
 }

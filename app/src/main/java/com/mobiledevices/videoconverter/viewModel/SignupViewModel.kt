@@ -43,13 +43,13 @@ class SignupViewModel : ViewModel() {
                     val hashedPassword = PasswordUtils.hashPassword(password)
                     val newUser =
                         User(id = pseudo.lowercase(), mail = email, password = hashedPassword)
-                    val CurrentUser = FirestoreRepository.addUser(newUser)
-                    if (CurrentUser != null) {
-                        onSuccess(CurrentUser)
+                    val currentUser = FirestoreRepository.addUser(newUser)
+                    if (currentUser != null) {
+                        onSuccess(currentUser)
                     }
                 } catch (e: Exception) {
                     onUserSignUpError(e)
-                    Log.e("ErrorSignUp", "error on sign up: ${e}")
+                    Log.e("ErrorSignUp", "error on sign up: $e")
                 }
                 onResult(true, "")
 
@@ -62,7 +62,6 @@ class SignupViewModel : ViewModel() {
      * @param exception L'exception survenue lors de la tentative d'inscription.
      */
     private fun onUserSignUpError(exception: Exception?) {
-        Log.i("FailsSignUp", "Fails on sign up")
+        Log.i("ErrorSignUp", "error on sign up: $exception")
     }
-
 }

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.mobiledevices.videoconverter.core.utils.PasswordUtils
+import com.mobiledevices.videoconverter.core.utils.SessionManager
 import com.mobiledevices.videoconverter.core.utils.UserManager
 import com.mobiledevices.videoconverter.databinding.FragmentSettingsBinding
 import com.mobiledevices.videoconverter.ui.connection.ConnectionActivity
@@ -71,6 +72,7 @@ class SettingsFragment : Fragment() {
             sharedViewModel.logoutUser()
             UserManager.logOut()
             Log.i(TAG, "User logged out !")
+            SessionManager.logoutUser(requireContext())
             activity?.finish()
             val intent = Intent(activity, ConnectionActivity::class.java)
             startActivity(intent)

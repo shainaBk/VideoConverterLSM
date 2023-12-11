@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mobiledevices.videoconverter.R
+import com.mobiledevices.videoconverter.core.utils.SessionManager
 import com.mobiledevices.videoconverter.core.utils.UserManager
 import com.mobiledevices.videoconverter.databinding.FragmentLoginBinding
 import com.mobiledevices.videoconverter.model.User
@@ -45,6 +46,7 @@ class LoginFragment : Fragment() {
             ) { isValid, errorMessage ->
                 if (isValid) {
                     Log.d(TAG, "Login success")
+                    SessionManager.createLoginSession(requireContext(), pseudo, password)
                     findNavController().navigate(R.id.action_loginFragment_to_applicationActivity)
                 } else {
                     when {
