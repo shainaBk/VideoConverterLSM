@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ViewModel
+package com.mobiledevices.videoconverter.viewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.mobiledevices.videoconverter.Core.Service.MusicService
-import com.mobiledevices.videoconverter.Model.Music
+import com.mobiledevices.videoconverter.core.service.MusicService
+import com.mobiledevices.videoconverter.model.Music
 import kotlinx.coroutines.launch
 
 class MusicViewModel : ViewModel() {
@@ -31,20 +31,23 @@ class MusicViewModel : ViewModel() {
         get() = _musicList.map { music -> music.filter { it.isDownloaded } }
 
 
-
     /**
      * Search Musique
      * */
 
-    fun searchMusique(query:String, onSuccess: (List<Music>)-> Unit,onResult: (Boolean, String) -> Unit ){
+    fun searchMusique(
+        query: String,
+        onSuccess: (List<Music>) -> Unit,
+        onResult: (Boolean, String) -> Unit
+    ) {
         //Mettre en place une coroutine
         viewModelScope.launch {
             val MusicListsFound = MusicService.getMusics(query)
-            if(!MusicListsFound.none()){
+            if (!MusicListsFound.none()) {
                 onSuccess(MusicListsFound)
-                onResult(true,"Musiques récupérés: ${MusicListsFound.toString()}")
-            }else{
-                onResult(false,"Aucune Musique trouvé!")
+                onResult(true, "Musiques récupérés: $MusicListsFound")
+            } else {
+                onResult(false, "Aucune Musique trouvé!")
             }
         }
     }

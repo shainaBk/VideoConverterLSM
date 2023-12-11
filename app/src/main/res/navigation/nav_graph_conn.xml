@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.mobiledevices.videoconverter.Ui.connection.WelcomeFragment"
+        android:name="com.mobiledevices.videoconverter.ui.connection.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mobiledevices.videoconverter.Ui.connection.LoginFragment"
+        android:name="com.mobiledevices.videoconverter.ui.connection.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.mobiledevices.videoconverter.Ui.connection.SignupFragment"
+        android:name="com.mobiledevices.videoconverter.ui.connection.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup">
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <activity
         android:id="@+id/applicationActivity"
-        android:name="com.mobiledevices.videoconverter.Ui.application.ApplicationActivity"
+        android:name="com.mobiledevices.videoconverter.ui.application.ApplicationActivity"
         android:label="activity_application"
         tools:layout="@layout/activity_application" />
 </navigation>

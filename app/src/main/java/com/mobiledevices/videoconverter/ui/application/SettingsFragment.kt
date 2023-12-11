@@ -1,10 +1,5 @@
-package com.mobiledevices.videoconverter.Ui.application
+package com.mobiledevices.videoconverter.ui.application
 
-import com.mobiledevices.videoconverter.Ui.connection.ConnectionActivity
-import com.mobiledevices.videoconverter.databinding.FragmentSettingsBinding
-import com.mobiledevices.videoconverter.ViewModel.MusicViewModel
-import com.mobiledevices.videoconverter.ViewModel.SettingsViewModel
-import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,11 +10,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import com.mobiledevices.videoconverter.Core.Utils.PasswordUtils
-import com.mobiledevices.videoconverter.Core.Utils.UserManager
+import com.mobiledevices.videoconverter.core.utils.PasswordUtils
+import com.mobiledevices.videoconverter.core.utils.UserManager
+import com.mobiledevices.videoconverter.databinding.FragmentSettingsBinding
+import com.mobiledevices.videoconverter.ui.connection.ConnectionActivity
+import com.mobiledevices.videoconverter.viewModel.MusicViewModel
+import com.mobiledevices.videoconverter.viewModel.SettingsViewModel
+import com.mobiledevices.videoconverter.viewModel.SharedViewModel
 
 
 class SettingsFragment : Fragment() {
+    companion object {
+        private const val TAG = "SettingsFragment"
+    }
+
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
@@ -35,22 +39,26 @@ class SettingsFragment : Fragment() {
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        binding.btnChangePassword.setOnClickListener{
+        binding.btnChangePassword.setOnClickListener {
             val password = binding.tiEditNewPassword.text.toString()
             val passwordConf = binding.tiEditNewConfPassword.text.toString()
             val userId = sharedViewModel.currentUser.value?.id
             if (userId != null) {
-                settingViewModel.checkNewPasswordSettings(password,passwordConf,userId) { isValid, errorMessage ->
+                settingViewModel.checkNewPasswordSettings(
+                    password,
+                    passwordConf,
+                    userId
+                ) { isValid, errorMessage ->
                     if (isValid) {
                         sharedViewModel.changePassword(PasswordUtils.hashPassword(password))
-                        Toast.makeText(context, "Mot de passe mit à jours !", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Mot de passe mit à jours !", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
-                        when{
+                        when {
                             errorMessage.contains("Mot de passe") -> {
                                 binding.tiEditNewPassword.error = errorMessage
                                 binding.tiEditNewConfPassword.error = errorMessage
                             }
-
                         }
                     }
                 }
@@ -62,7 +70,7 @@ class SettingsFragment : Fragment() {
             //var de session
             sharedViewModel.logoutUser()
             UserManager.logOut()
-            Log.i("LogOutSucess","Log out sucessful !!")
+            Log.i(TAG, "User logged out !")
             activity?.finish()
             val intent = Intent(activity, ConnectionActivity::class.java)
             startActivity(intent)
@@ -71,7 +79,6 @@ class SettingsFragment : Fragment() {
         binding.btnClearMusic.setOnClickListener {
             musicViewModel.clearMusicList()
         }
-
         return binding.root
     }
 

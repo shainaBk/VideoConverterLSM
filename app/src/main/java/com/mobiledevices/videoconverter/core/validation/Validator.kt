@@ -1,8 +1,7 @@
-package com.mobiledevices.videoconverter.Core.validation
+package com.mobiledevices.videoconverter.core.validation
 
-import android.util.Log
-import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
-import com.mobiledevices.videoconverter.Core.Utils.PasswordUtils
+import com.mobiledevices.videoconverter.core.dao.FirestoreRepository
+import com.mobiledevices.videoconverter.core.utils.PasswordUtils
 
 /**
  * La classe Validator fournit des méthodes de validation pour différents types d'entrées utilisateur,
@@ -39,22 +38,21 @@ class Validator {
          * @return True si le pseudo est valide et unique, sinon False.
          */
         suspend fun isValidPseudoSignUp(pseudo: String): Boolean {
-            if (pseudo.length < 3 || pseudo.length > 15) {
+            if (pseudo.length < 3 || pseudo.length > 15)
                 return false // Longueur du pseudo non valide
-            }
             val pseudoBd = FirestoreRepository.getUser(pseudo.lowercase())?.id
-            return !pseudo.lowercase().equals(pseudoBd)
+            return pseudo.lowercase() != pseudoBd
         }
 
-        //LOGINPART
+        //LOGIN PART
         /**
          * Vérifie si le pseudo existe pour la connexion.
          * @param pseudo Le pseudo à valider.
          * @return True si le pseudo existe, sinon False.
          */
-        suspend fun isValidPseudoLogIn(pseudo: String): Boolean{
+        suspend fun isValidPseudoLogIn(pseudo: String): Boolean {
             val pseudoBd = FirestoreRepository.getUser(pseudo.lowercase())?.id
-            return pseudo.lowercase().equals(pseudoBd)
+            return pseudo.lowercase() == pseudoBd
         }
 
         /**
@@ -63,11 +61,10 @@ class Validator {
          * @param password Le mot de passe à valider.
          * @return True si le mot de passe correspond, sinon False.
          */
-        suspend fun isValidPasswordLogIn(pseudo: String,password: String): Boolean{
+        suspend fun isValidPasswordLogIn(pseudo: String, password: String): Boolean {
             val pseudoPassword = FirestoreRepository.getUser(pseudo.lowercase())?.password
             val tappedPasswordHash = PasswordUtils.hashPassword(password)
-            return tappedPasswordHash.equals(pseudoPassword)
+            return tappedPasswordHash == pseudoPassword
         }
-
     }
 }

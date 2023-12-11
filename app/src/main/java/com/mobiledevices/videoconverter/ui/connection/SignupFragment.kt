@@ -1,5 +1,4 @@
-
-package com.mobiledevices.videoconverter.Ui.connection
+package com.mobiledevices.videoconverter.ui.connection
 
 import android.os.Bundle
 import android.util.Log
@@ -9,13 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Core.Utils.UserManager
-import com.mobiledevices.videoconverter.ViewModel.SignupViewModel
+import com.mobiledevices.videoconverter.core.utils.UserManager
 import com.mobiledevices.videoconverter.databinding.FragmentSignupBinding
+import com.mobiledevices.videoconverter.model.User
+import com.mobiledevices.videoconverter.viewModel.SignupViewModel
 
 class SignupFragment : Fragment() {
+    companion object {
+        private const val TAG = "SignupFragment"
+    }
 
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
@@ -35,12 +37,18 @@ class SignupFragment : Fragment() {
         binding.btnSignup.setOnClickListener {
             val email = binding.tiEditMail.text.toString()
             val password = binding.tiEditPassword.text.toString()
-            val repeatPassword=binding.tiEditConfPassword.text.toString()
+            val repeatPassword = binding.tiEditConfPassword.text.toString()
             val pseudo = binding.tiEditUsername.text.toString()
 
-            signupViewModel.checkPseudoAndSignUp(pseudo, email, password, repeatPassword,::onUserSignUpSuccess){ isValid, errorMessage ->
+            signupViewModel.checkPseudoAndSignUp(
+                pseudo,
+                email,
+                password,
+                repeatPassword,
+                ::onUserSignUpSuccess
+            ) { isValid, errorMessage ->
                 if (isValid) {
-                    Log.i("SignUpSucess","Sign up sucessful !!")
+                    Log.i(TAG, "Signup success")
                     findNavController().navigate(R.id.action_signupFragment_to_applicationActivity)
                 } else {
                     handleValidationErrors(errorMessage)
@@ -72,6 +80,7 @@ class SignupFragment : Fragment() {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
