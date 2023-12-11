@@ -81,6 +81,13 @@ class SettingsFragment : Fragment() {
         binding.btnClearMusic.setOnClickListener {
             musicViewModel.clearMusicList()
         }
+
+        binding.tvUsername.text = buildString {
+            append("Hello ")
+            append(SessionManager.getUsername(requireContext()))
+            append(" !")
+        }
+
         return binding.root
     }
 
