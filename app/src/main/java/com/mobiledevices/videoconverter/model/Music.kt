@@ -1,5 +1,8 @@
 package com.mobiledevices.videoconverter.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 class Music(
     val videoId: String = "",
     val videoUrl: String = "",

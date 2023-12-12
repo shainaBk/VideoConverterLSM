@@ -3,6 +3,7 @@ package com.mobiledevices.videoconverter.ui.connection
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -24,7 +25,18 @@ class ConnectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
+        val binding = ActivityConnectionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Find the CircularProgressIndicator and overlay view by their IDs
+        val progressIndicator = binding.piChecking
+        val overlayView = binding.viewMask
+
+        // Show the progress indicator and overlay view
+        progressIndicator.visibility = View.VISIBLE
+        overlayView.visibility = View.VISIBLE
+
         if (SessionManager.isLoggedIn(this)) {
             val pseudo = SessionManager.getUsername(this)!!
             val password = SessionManager.getPassword(this)!!
@@ -33,6 +45,9 @@ class ConnectionActivity : AppCompatActivity() {
                 password,
                 ::onUserLogInSuccess
             ) { isValid, _ ->
+                progressIndicator.visibility = View.GONE
+                overlayView.visibility = View.GONE
+
                 if (isValid) {
                     Log.i("ConnectionActivity", "User is logged in")
                     val intent = Intent(this, ApplicationActivity::class.java)
@@ -40,10 +55,11 @@ class ConnectionActivity : AppCompatActivity() {
                     finish()
                 }
             }
+        } else {
+            // Hide the progress indicator and overlay view
+            progressIndicator.visibility = View.GONE
+            overlayView.visibility = View.GONE
         }
-
-        val binding = ActivityConnectionBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         // Get the navigation host fragment from this Activity
         val navHostFragment = supportFragmentManager
@@ -51,6 +67,7 @@ class ConnectionActivity : AppCompatActivity() {
         // Instantiate the navController using the NavHostFragment
         navController = navHostFragment.navController
     }
+
 
     private fun onUserLogInSuccess(user: User) {
         UserManager.logIn(user)
