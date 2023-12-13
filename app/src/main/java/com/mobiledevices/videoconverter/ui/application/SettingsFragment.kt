@@ -52,6 +52,8 @@ class SettingsFragment : Fragment() {
                 ) { isValid, errorMessage ->
                     if (isValid) {
                         sharedViewModel.changePassword(PasswordUtils.hashPassword(password))
+                        binding.tiEditNewPassword.text?.clear()
+                        binding.tiEditNewConfPassword.text?.clear()
                         Toast.makeText(context, "Mot de passe mit à jours !", Toast.LENGTH_SHORT)
                             .show()
                     } else {

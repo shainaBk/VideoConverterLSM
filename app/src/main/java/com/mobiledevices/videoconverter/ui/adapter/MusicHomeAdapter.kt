@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.google.android.material.snackbar.Snackbar
 import com.mobiledevices.videoconverter.R
 import com.mobiledevices.videoconverter.model.Music
 
@@ -91,10 +91,11 @@ class MusicHomeAdapter(
         holder.artist.text = music.channelTitle
 
         holder.download.setOnClickListener {
-            Snackbar
-                .make(it, "Downloading ${music.title}...", Snackbar.LENGTH_SHORT)
-                .setAction("Close") {}
-                .show()
+            Toast.makeText(
+                holder.itemView.context,
+                "Downloading ${music.title}",
+                Toast.LENGTH_LONG
+            ).show()
 
             downloadListener.onMusicDownload(music)//MusicViewModel
             onDownloadClicked(music) // ShareViewModel
