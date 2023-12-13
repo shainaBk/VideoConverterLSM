@@ -1,5 +1,7 @@
-package com.mobiledevices.videoconverter.Core.Utils
+package com.mobiledevices.videoconverter.core.utils
+
 import java.security.MessageDigest
+
 object PasswordUtils {
     /**
      * Hache un mot de passe en utilisant l'algorithme SHA-256.

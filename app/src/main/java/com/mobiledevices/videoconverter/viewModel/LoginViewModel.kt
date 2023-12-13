@@ -1,10 +1,10 @@
-package com.mobiledevices.videoconverter.ViewModel
+package com.mobiledevices.videoconverter.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
-import com.mobiledevices.videoconverter.Model.User
-import com.mobiledevices.videoconverter.Core.validation.Validator
+import com.mobiledevices.videoconverter.core.dao.FirestoreRepository
+import com.mobiledevices.videoconverter.core.validation.Validator
+import com.mobiledevices.videoconverter.model.User
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
@@ -15,21 +15,24 @@ class LoginViewModel : ViewModel() {
      * @param onSuccess Fonction de callback appelée en cas de succès avec l'utilisateur connecté.
      * @param onResult Fonction de callback appelée avec le résultat de la validation (succès ou échec) et un message d'erreur ou de succès.
      */
-    fun checkPseudoPasswordLogIn(pseudo: String, password: String, onSuccess: (User) -> Unit, onResult: (Boolean, String) -> Unit){
+    fun checkPseudoPasswordLogIn(
+        pseudo: String,
+        password: String,
+        onSuccess: (User) -> Unit,
+        onResult: (Boolean, String) -> Unit
+    ) {
         viewModelScope.launch {
-            if (!Validator.isValidPseudoLogIn(pseudo)){
-                onResult(false,"Pseudo non-existant")
-            }else if(!Validator.isValidPasswordLogIn(pseudo,password)){
-                onResult(false,"Mot de passe incorrecte")
-            }else{
+            if (!Validator.isValidPseudoLogIn(pseudo)) {
+                onResult(false, "Pseudo non-existant")
+            } else if (!Validator.isValidPasswordLogIn(pseudo, password)) {
+                onResult(false, "Mot de passe incorrecte")
+            } else {
                 val currentUser = FirestoreRepository.getUser(pseudo)
                 if (currentUser != null) {
                     onSuccess(currentUser)
                 }
-                    onResult(true,"Erreur de connexion")
-
+                onResult(true, "Erreur de connexion")
             }
-
         }
     }
 }

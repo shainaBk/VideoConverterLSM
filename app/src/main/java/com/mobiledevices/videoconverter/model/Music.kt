@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Model
+package com.mobiledevices.videoconverter.model
 
 import kotlinx.serialization.Serializable
 

@@ -1,7 +1,8 @@
 package com.mobiledevices.videoconverter
-import com.mobiledevices.videoconverter.Model.Music
-import com.mobiledevices.videoconverter.Model.User
-import org.junit.Assert.*
+
+import com.mobiledevices.videoconverter.model.Music
+import com.mobiledevices.videoconverter.model.User
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class UserTest {

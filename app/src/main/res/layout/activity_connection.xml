@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ui.connection.ConnectionActivity">
+    tools:context=".ui.connection.ConnectionActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -13,5 +13,22 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph_conn" />
+
+
+    <View
+        android:id="@+id/view_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#BF000000"
+        android:visibility="gone" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/pi_checking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:indicatorColor="@color/orange_4"
+        app:indicatorSize="40dp" />
 
 </FrameLayout>

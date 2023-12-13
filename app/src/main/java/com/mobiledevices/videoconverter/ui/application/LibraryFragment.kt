@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Ui.application
+package com.mobiledevices.videoconverter.ui.application
 
 import android.os.Bundle
 import android.util.Log
@@ -7,18 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
-import com.mobiledevices.videoconverter.Model.Music
-import com.mobiledevices.videoconverter.Ui.adapter.MusicLibraryAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentLibraryBinding
-import com.mobiledevices.videoconverter.ViewModel.MusicViewModel
-import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
-import kotlinx.coroutines.launch
+import com.mobiledevices.videoconverter.model.Music
+import com.mobiledevices.videoconverter.ui.adapter.MusicLibraryAdapter
+import com.mobiledevices.videoconverter.viewModel.SharedViewModel
 
-class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
+class LibraryFragment : Fragment(), MusicLibraryAdapter.OnMusicRemoveListener {
 
     companion object {
         private const val TAG = "LibraryFragment"
@@ -69,7 +64,7 @@ class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
      * Configure le RecyclerView et son adaptateur pour afficher la liste de musiques.
      */
     private fun setupRecyclerView() {
-        val adapter = MusicLibraryAdapter(mutableListOf(),this)
+        val adapter = MusicLibraryAdapter(mutableListOf(), this)
         Log.d(TAG, "Setup LIB recycler view")
         binding.rvLibrary.apply {
             layoutManager = LinearLayoutManager(context)
@@ -88,12 +83,12 @@ class LibraryFragment : Fragment(),MusicLibraryAdapter.OnMusicRemoveListener {
      * Observe les modifications de la bibliothèque musicale de l'utilisateur et met à jour l'interface.
      */
     private fun observeLibraryMusic() {
-        //new
-        sharedViewModel.currentUser.observe(viewLifecycleOwner, Observer { currentUser ->
+        sharedViewModel.currentUser.observe(viewLifecycleOwner) { currentUser ->
             currentUser?.librarie?.let { library ->
                 (binding.rvLibrary.adapter as? MusicLibraryAdapter)?.updateMusicList(library)
             }
-        })
+            updateNoResultImage(currentUser?.librarie ?: listOf())
+        }
     }
 
     /**

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ui.connection.SignupFragment">
+    tools:context=".ui.connection.SignupFragment">
 
     <ImageButton
         android:id="@+id/ib_back"
@@ -103,7 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword|textNoSuggestions"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:paddingEnd="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -125,7 +126,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword|textNoSuggestions"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:paddingEnd="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

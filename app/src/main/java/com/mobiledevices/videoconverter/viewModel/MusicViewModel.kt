@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.ViewModel
+package com.mobiledevices.videoconverter.viewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.mobiledevices.videoconverter.Core.Service.MusicService
-import com.mobiledevices.videoconverter.Model.Music
+import com.mobiledevices.videoconverter.core.service.MusicService
+import com.mobiledevices.videoconverter.model.Music
 import kotlinx.coroutines.launch
 
 class MusicViewModel : ViewModel() {
@@ -23,39 +23,39 @@ class MusicViewModel : ViewModel() {
     /**
      * Expose the music list as a live data
      */
-    val musicList: LiveData<List<Music>>
-        get() = _musicList.map { it.toList() }
     val nonDownloadedMusic: LiveData<List<Music>>
         get() = _musicList.map { music -> music.filter { !it.isDownloaded } }
     val downloadedMusic: LiveData<List<Music>>
         get() = _musicList.map { music -> music.filter { it.isDownloaded } }
 
 
-
     /**
      * Search Musique
      * */
 
-    fun searchMusique(query:String, onSuccess: (List<Music>)-> Unit,onResult: (Boolean, String) -> Unit ){
+    fun searchMusique(
+        query: String,
+        onSuccess: (List<Music>) -> Unit,
+        onResult: (Boolean, String) -> Unit
+    ) {
         //Mettre en place une coroutine
         viewModelScope.launch {
-            val MusicListsFound = MusicService.getMusics(query)
-            if(!MusicListsFound.none()){
-                onSuccess(MusicListsFound)
-                onResult(true,"Musiques récupérés: ${MusicListsFound.toString()}")
-            }else{
-                onResult(false,"Aucune Musique trouvé!")
+            val musicListsFound = MusicService.getMusics(query)
+            if (!musicListsFound.none()) {
+                onSuccess(musicListsFound)
+                onResult(true, "Musiques récupérés: $musicListsFound")
+            } else {
+                onResult(false, "Aucune Musique trouvé!")
             }
         }
     }
 
     /**
      * Add a music to the music list
-     * @param music The music to add
+     * @param musics The music to add
      */
     fun setMusicList(musics: List<Music>) {
-        var currentList = _musicList.value ?: mutableListOf()
-        currentList = musics.toMutableList()
+        val currentList = musics.toMutableList()
         _musicList.postValue(currentList) // Update the mutable live data
         Log.d(TAG, "Music added: $musics")
         Log.d(TAG, "Current music list: $currentList")

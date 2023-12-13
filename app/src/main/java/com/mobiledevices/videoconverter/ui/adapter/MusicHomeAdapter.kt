@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Ui.adapter
+package com.mobiledevices.videoconverter.ui.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
 import coil.load
-import coil.request.ImageRequest
-import coil.util.Logger
-import com.google.android.material.snackbar.Snackbar
-import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
+import com.mobiledevices.videoconverter.model.Music
 
 
 /**
@@ -27,6 +24,10 @@ class MusicHomeAdapter(
     private val downloadListener: OnMusicDownloadListener,
     private val onDownloadClicked: (Music) -> Unit
 ) : RecyclerView.Adapter<MusicHomeAdapter.MusicHomeViewHolder>() {
+
+    companion object {
+        private const val TAG = "MusicHomeAdapter"
+    }
 
     /**
      * A view holder for the recycler view: it contains the view elements
@@ -83,17 +84,18 @@ class MusicHomeAdapter(
             crossfade(true)
             error(R.drawable.ic_error) // Image d'erreur
             listener(onError = { _, throwable ->
-                Log.e("ImageLoadError", "Erreur lors du chargement de l'image :${music.thumbnailUrl}: ${throwable}")
+                Log.e(TAG, "Error loading thumbnail: $throwable")
             })
         }
         holder.title.text = music.title
         holder.artist.text = music.channelTitle
 
         holder.download.setOnClickListener {
-            Snackbar
-                .make(it, "Downloading ${music.title}...", Snackbar.LENGTH_SHORT)
-                .setAction("Close") {}
-                .show()
+            Toast.makeText(
+                holder.itemView.context,
+                "Downloading ${music.title}",
+                Toast.LENGTH_LONG
+            ).show()
 
             downloadListener.onMusicDownload(music)//MusicViewModel
             onDownloadClicked(music) // ShareViewModel

@@ -1,5 +1,7 @@
-package com.mobiledevices.videoconverter.Ui.adapter
+package com.mobiledevices.videoconverter.ui.adapter
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +12,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.mobiledevices.videoconverter.Core.Dao.FirestoreRepository
-import com.mobiledevices.videoconverter.Core.Utils.UserManager
-import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
-import android.content.Intent
-import android.net.Uri
+import com.mobiledevices.videoconverter.model.Music
+
 class MusicLibraryAdapter(
     private val musicList: MutableList<Music>,
     private val removeListener: OnMusicRemoveListener
 ) : RecyclerView.Adapter<MusicLibraryAdapter.MusicLibraryViewHolder>() {
+
+    companion object {
+        private const val TAG = "MusicLibraryAdapter"
+    }
 
     /**
      * A view holder for the recycler view: it contains the view elements
@@ -72,12 +75,12 @@ class MusicLibraryAdapter(
      */
     override fun onBindViewHolder(holder: MusicLibraryViewHolder, position: Int) {
         val music = musicList[position]
-        Log.i("info posi music","info posi: ${position}")
+        Log.i(TAG, "Bind music: $music at position: $position")
         holder.thumbnail.load(music.thumbnailUrl) {
             crossfade(true)
             error(R.drawable.ic_error) // Image d'erreur
             listener(onError = { _, throwable ->
-                Log.e("ImageLoadError", "Erreur lors du chargement de l'image: ${throwable}")
+                Log.e(TAG, "Error loading thumbnail: $throwable")
             })
         }
 
@@ -92,7 +95,7 @@ class MusicLibraryAdapter(
         holder.artist.text = music.channelTitle
 
         holder.deleteButton.setOnClickListener {
-            Log.i("info posi music 2","delete at posi: ${position}")
+            Log.i(TAG, "Remove music: $music at position: $position")
             removeListener.onMusicRemove(music)
         }
     }

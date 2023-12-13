@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Ui.connection
+package com.mobiledevices.videoconverter.ui.connection
 
 import android.os.Bundle
 import android.util.Log
@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.mobiledevices.videoconverter.Model.User
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Core.Utils.UserManager
+import com.mobiledevices.videoconverter.core.utils.SessionManager
+import com.mobiledevices.videoconverter.core.utils.UserManager
 import com.mobiledevices.videoconverter.databinding.FragmentLoginBinding
-import com.mobiledevices.videoconverter.ViewModel.LoginViewModel
+import com.mobiledevices.videoconverter.model.User
+import com.mobiledevices.videoconverter.viewModel.LoginViewModel
 
 class LoginFragment : Fragment() {
+    companion object {
+        private const val TAG = "LoginFragment"
+    }
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -35,14 +39,22 @@ class LoginFragment : Fragment() {
             val pseudo = binding.tiEditUsername.text.toString()
             val password = binding.tiEditPassword.text.toString()
 
-            loginViewModel.checkPseudoPasswordLogIn(pseudo,password,::onUserLogInSuccess) { isValid, errorMessage ->
+            loginViewModel.checkPseudoPasswordLogIn(
+                pseudo,
+                password,
+                ::onUserLogInSuccess
+            ) { isValid, errorMessage ->
                 if (isValid) {
-                    Log.i("LogInSucess","Log in sucessful !!")
+                    Log.d(TAG, "Login success")
+                    SessionManager.createLoginSession(requireContext(), pseudo, password)
                     findNavController().navigate(R.id.action_loginFragment_to_applicationActivity)
                 } else {
-                    when{
-                        errorMessage.contains("Pseudo") -> binding.tiEditUsername.error = errorMessage
-                        errorMessage.contains("Mot de passe") -> binding.tiEditPassword.error = errorMessage
+                    when {
+                        errorMessage.contains("Pseudo") -> binding.tiEditUsername.error =
+                            errorMessage
+
+                        errorMessage.contains("Mot de passe") -> binding.tiEditPassword.error =
+                            errorMessage
                     }
                 }
             }

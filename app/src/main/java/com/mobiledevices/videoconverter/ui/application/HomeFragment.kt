@@ -1,4 +1,4 @@
-package com.mobiledevices.videoconverter.Ui.application
+package com.mobiledevices.videoconverter.ui.application
 
 import android.os.Bundle
 import android.util.Log
@@ -8,16 +8,15 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.mobiledevices.videoconverter.Model.Music
 import com.mobiledevices.videoconverter.R
-import com.mobiledevices.videoconverter.Ui.adapter.MusicHomeAdapter
 import com.mobiledevices.videoconverter.databinding.FragmentHomeBinding
-import com.mobiledevices.videoconverter.ViewModel.MusicViewModel
-import com.mobiledevices.videoconverter.ViewModel.SharedViewModel
-import kotlin.random.Random
+import com.mobiledevices.videoconverter.model.Music
+import com.mobiledevices.videoconverter.ui.adapter.MusicHomeAdapter
+import com.mobiledevices.videoconverter.viewModel.MusicViewModel
+import com.mobiledevices.videoconverter.viewModel.SharedViewModel
+
 
 class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
 
@@ -82,7 +81,8 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
         Log.d(TAG, "Setup HOME recycler view")
         val adapter = MusicHomeAdapter(
             mutableListOf(),
-            this) { music ->
+            this
+        ) { music ->
             sharedViewModel.addMusicToLibrary(music)
         }
         binding.rvDownload.apply {
@@ -97,7 +97,9 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     private fun observeMusicList() {
         Log.d(TAG, "Observe music list")
-        musicViewModel.nonDownloadedMusic.observe(viewLifecycleOwner, Observer { nonDownloadedList ->
+        musicViewModel.nonDownloadedMusic.observe(
+            viewLifecycleOwner
+        ) { nonDownloadedList ->
             binding.rvDownload.adapter?.let { adapter ->
                 if (adapter is MusicHomeAdapter) {
                     val musicListString = nonDownloadedList.joinToString("\n") { it.toString() }
@@ -106,7 +108,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
                     updateNoResultImage(nonDownloadedList)
                 }
             }
-        })
+        }
     }
 
     /**
@@ -114,7 +116,15 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     private fun setupSearchButton() {
         binding.newSearch.setOnClickListener {
-            openSearchDialog()
+            if (isConnected()) {
+                openSearchDialog()
+            } else {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("No internet connection")
+                    .setMessage("Please check your internet connection")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
         }
     }
 
@@ -132,12 +142,13 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
             .setPositiveButton("Search") { _, _ ->
                 //NEW
                 musicViewModel.searchMusique(editText.text.toString(),
-                    { mS ->musicViewModel.setMusicList(mS)
+                    { mS ->
+                        musicViewModel.setMusicList(mS)
                     }, { isValid, message ->
-                        if(isValid){
-                            Log.i("SUCCESSMUSIC",message)
-                        }else{
-                            Log.i("FAILMUSIC",message)
+                        if (isValid) {
+                            Log.i(TAG, "Music found: $message")
+                        } else {
+                            Log.e(TAG, "Error searching music: $message")
                         }
                     })
             }
@@ -151,5 +162,10 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
      */
     private fun updateNoResultImage(list: List<Music>) {
         binding.ivNoResult.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun isConnected(): Boolean {
+        val command = "ping -c 1 google.com"
+        return Runtime.getRuntime().exec(command).waitFor() == 0
     }
 }
