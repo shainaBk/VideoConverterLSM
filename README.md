@@ -1,6 +1,8 @@
 Mobile Devices Project : Taga-Taga App
 ======================================
 
+![demo_converter.gif](img/demo_converter.gif)
+
 # Description of the app
 
 ## Purpose of the application:
@@ -89,7 +91,7 @@ When the user open the app, he is directly on the Welcome Page, on which he can 
 to Signup.
 
 On the Signup Page, he has to fill different data such as his username, email, password and a
-confimartion of his password.
+confirmation of his password.
 
 On the Login Page, he can directly connect with his username and password, that must have been
 chosen previously.
@@ -120,7 +122,7 @@ logout of his account.
 
 We worked in a team of three people.
 We used Github to share the progress of our project.
-We separated front-end developpement and back-end developpement for the basic actions at first and
+We separated front-end development and back-end development for the basic actions at first and
 then, we gathered them.
 After that, we implemented few improvements.
 
@@ -135,21 +137,27 @@ After that, we implemented few improvements.
 ## Utilisation
 
 To launch the app in Android Studio, we need the prerequisites above.
-It is not possible yet to install it on Android devices.
+It is not possible yet to install it through the Play Store but you can download the APK file.
 
-## Tests Unitaires
+## Unit tests
 
-We implemented unit tests to test the different functionnalities separately.
+We implemented unit tests to test the different functionalities separately.
 To launch them, we just have to go to the test class and run it:
-app/src/test/java/com/mobiledevices/videoconverter/ExampleUnitTest.kt
-app/src/test/java/com/mobiledevices/videoconverter/MusicTest.kt
-app/src/test/java/com/mobiledevices/videoconverter/UserTest.kt
+
+`app/src/test/java/com/mobiledevices/videoconverter/ExampleUnitTest.kt`
+
+`app/src/test/java/com/mobiledevices/videoconverter/MusicTest.kt`
+
+`app/src/test/java/com/mobiledevices/videoconverter/UserTest.kt`
 
 ## Known Issues/Limitations
 
 We're facing an SSL certificate issue with an emulator in our mobile app, which is intended for
 downloading YouTube videos as audio. This problem involves a conflict between PyTube, a Python
 library we use for downloading YouTube videos, and the emulator.
+
+Sometimes, the connection test fails, even if the user is connected. In this case, you have to
+uncomment the `return` in `isConnected()` method in the `HomeFragment.kt` file.
 
 ## Future improvements
 
@@ -163,6 +171,6 @@ This application aims to be used on Android devices.
 
 # Contacts / Authors
 
-- [Mathis ESTEVE]
+- [Mathis]
 - [Shaina BAKILI MUMBUKU]
 - [Lucie GALLOIS]

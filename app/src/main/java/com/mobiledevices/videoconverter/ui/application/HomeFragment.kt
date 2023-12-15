@@ -165,6 +165,7 @@ class HomeFragment : Fragment(), MusicHomeAdapter.OnMusicDownloadListener {
     }
 
     private fun isConnected(): Boolean {
+        // return true // Uncomment if the internet test is not working
         val command = "ping -c 1 google.com"
         return Runtime.getRuntime().exec(command).waitFor() == 0
     }
